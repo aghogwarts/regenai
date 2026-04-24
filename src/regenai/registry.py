@@ -116,11 +116,20 @@ def _detect_project_roots(root_dir: Path, all_dirs: set[Path]) -> dict[Path, str
 
     A directory is a project root if it contains at least one anchor file
     (package.json, requirements.txt, Cargo.toml, etc.).
+
+    README files are "weak" anchors — they count for subdirectories but
+    are ignored at the scan root to avoid tagging the entire input as
+    one project.
     """
+    weak_anchors = {"README.md", "README.rst", "README.txt", "README"}
     roots: dict[Path, str] = {}
 
     for dir_path in sorted(all_dirs):
+        is_scan_root = dir_path == root_dir
         for anchor in ANCHOR_FILES:
+            # Skip weak anchors at scan root
+            if is_scan_root and anchor in weak_anchors:
+                continue
             # Handle glob patterns like *.csproj
             if "*" in anchor:
                 if list(dir_path.glob(anchor)):

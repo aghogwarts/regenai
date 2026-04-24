@@ -153,6 +153,10 @@ DOCUMENT_EXTENSIONS: set[str] = {
     ".html",
     ".htm",
     ".epub",
+    ".cls",
+    ".bib",
+    ".bst",
+    ".sty",
 }
 
 CONFIG_EXTENSIONS: set[str] = {
@@ -209,7 +213,11 @@ ANCHOR_FILES: set[str] = {
     "docker-compose.yaml",
     "compose.yml",
     "compose.yaml",
-    # General — NOTE: README excluded, too common to reliably signal a project root
+    # General — README is a weak anchor, ignored at scan root level
+    "README.md",
+    "README.rst",
+    "README.txt",
+    "README",
 }
 
 # Infrastructure/support files that inherit their project root's cluster
