@@ -387,6 +387,9 @@ def parse_file(entry: FileEntry) -> ParsedFile:
 
         # Check if we got usable content
         if not raw or not raw.strip():
+            console.print(
+                f"[dim]  [red]Parse error:[/red] {entry.relative_path}: No text content extracted[/dim]"
+            )
             return ParsedFile(
                 entry=entry,
                 raw_text="",
@@ -404,7 +407,9 @@ def parse_file(entry: FileEntry) -> ParsedFile:
         )
 
     except Exception as e:
-        console.print(f"  [red]Parse error:[/red] {entry.relative_path}: {e}")
+        console.print(
+            f"[dim]  [red]Parse error:[/red] {entry.relative_path}: {e}[/dim]"
+        )
         return ParsedFile(
             entry=entry,
             raw_text="",
@@ -452,6 +457,11 @@ def parse_all(entries: list[FileEntry]) -> list[ParsedFile]:
     console.print(f"  [green]Parsed successfully:[/green] {success}")
     if failed:
         console.print(f"  [yellow]Failed to parse:[/yellow] {failed}")
+        # for p in results:
+        #     if not p.parse_success:
+        #         console.print(
+        #             f"[dim]  [red]Parse error:[/red] {p.entry.relative_path}: {p.error}[/dim]"
+        #         )
     console.print()
 
     return results
