@@ -1,5 +1,9 @@
 # regenai
 
+# TODO
+
+- .doc support
+
 # 1. Clone/copy the regenai folder to wherever you want
 
 # 2. Create venv and install (only pathspec + rich needed for Module 1)
