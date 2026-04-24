@@ -1,0 +1,90 @@
+# ============================================================
+
+# ReGenAI default ignore patterns
+
+# Uses .gitignore syntax (powered by pathspec)
+
+# Add a .regenai-ignore file to your project root to extend
+
+# ============================================================
+
+# --- Package & dependency directories ---
+
+node_modules/
+vendor/
+bower_components/
+.gradle/
+target/
+**pycache**/
+_.pyc
+_.pyo
+.eggs/
+\*.egg-info/
+site-packages/
+.tox/
+
+# --- Virtual environments ---
+
+venv/
+.venv/
+env/
+.env/
+ENV/
+conda-envs/
+
+# --- Build artifacts ---
+
+dist/
+build/
+out/
+.next/
+.nuxt/
+_.min.js
+_.min.css
+_.map
+_.bundle.js
+\_build/
+
+# --- Cache & temp ---
+
+.cache/
+.tmp/
+_.tmp
+_.swp
+_.swo
+_.bak
+.DS_Store
+Thumbs.db
+\*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+**pypackages**/
+
+# --- Version control ---
+
+.git/
+.svn/
+.hg/
+.gitmodules
+
+# --- IDE & editor ---
+
+.idea/
+.vscode/
+_.suo
+_.user
+\*.workspace
+.project
+.settings/
+
+# --- OS generated ---
+
+desktop.ini
+ehthumbs.db
+Icon?
+
+# --- ReGenAI's own output ---
+
+regenai-output/
+.regenai_store/

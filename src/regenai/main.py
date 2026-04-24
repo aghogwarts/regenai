@@ -1,0 +1,130 @@
+"""
+CLI entrypoint for ReGenAI.
+
+Handles argument parsing, interactive prompts for directory paths,
+and orchestrates the pipeline modules in sequence.
+"""
+
+import argparse
+import sys
+from pathlib import Path
+
+from rich.console import Console
+from rich.prompt import Prompt, Confirm
+
+from regenai.config import DEFAULT_LLM_MODEL, DEFAULT_OUTPUT_DIR
+from regenai.registry import (
+    build_registry,
+    print_registry_summary,
+    print_registry_detail,
+)
+
+
+console = Console()
+
+
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="regenai",
+        description="ReGenAI — Crawl, cluster, and summarize project directories using local AI.",
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default=DEFAULT_LLM_MODEL,
+        help=f"Ollama model to use for summarization (default: {DEFAULT_LLM_MODEL})",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Scan directory and show file registry only — no processing",
+    )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Enable detailed logging and show file-level registry table",
+    )
+    return parser
+
+
+def _prompt_directory(label: str, default: str | None = None) -> Path:
+    """Prompt the user for a directory path, validate it exists."""
+    while True:
+        if default:
+            raw = Prompt.ask(f"  {label}", default=default)
+        else:
+            raw = Prompt.ask(f"  {label}")
+
+        path = Path(raw).expanduser().resolve()
+
+        if "output" in label.lower():
+            # Output directory will be created if it doesn't exist
+            return path
+
+        if not path.exists():
+            console.print(f"  [red]Path does not exist:[/red] {path}")
+            continue
+        if not path.is_dir():
+            console.print(f"  [red]Not a directory:[/red] {path}")
+            continue
+        return path
+
+
+def cli() -> None:
+    """Main CLI entrypoint."""
+    parser = _build_parser()
+    args = parser.parse_args()
+
+    # -- Banner --
+    console.print()
+    console.print("[bold cyan]  ReGenAI[/bold cyan] — Project Directory Summarizer")
+    console.print("  ─────────────────────────────────────────")
+    console.print()
+
+    # -- Interactive directory prompts --
+    input_dir = _prompt_directory("Enter input directory path")
+    output_dir = _prompt_directory(
+        "Enter output directory path", default=DEFAULT_OUTPUT_DIR
+    )
+
+    console.print()
+    console.print(f"  [dim]Model:[/dim]  {args.model}")
+    console.print()
+
+    # -- Module 1: File Registry --
+    with console.status("[bold green]Scanning directory..."):
+        registry = build_registry(input_dir)
+
+    print_registry_summary(registry)
+
+    if args.verbose or args.dry_run:
+        print_registry_detail(registry)
+
+    if len(registry.entries) == 0:
+        console.print(
+            "[yellow]No processable files found. Check your directory and ignore patterns.[/yellow]"
+        )
+        sys.exit(0)
+
+    if args.dry_run:
+        console.print("[dim]Dry run complete. No processing performed.[/dim]")
+        sys.exit(0)
+
+    # -- Confirmation before heavy processing --
+    proceed = Confirm.ask(
+        f"  Proceed with {len(registry.entries)} files?",
+        default=True,
+    )
+    if not proceed:
+        console.print("[dim]Aborted.[/dim]")
+        sys.exit(0)
+
+    # -- Modules 2+ will be called here sequentially --
+    # TODO: parser.py → chunker.py → embedder.py → clusterer.py → raptor.py → ...
+    console.print()
+    console.print("[yellow]Pipeline modules 2–10 not yet implemented.[/yellow]")
+    console.print("[dim]Next: parser.py (Module 2)[/dim]")
+
+
+if __name__ == "__main__":
+    cli()
