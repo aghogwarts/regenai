@@ -185,12 +185,8 @@ ANCHOR_FILES: set[str] = {
     "setup.cfg",
     "requirements.txt",
     "Pipfile",
-    "poetry.lock",
     # JavaScript/TypeScript
     "package.json",
-    "package-lock.json",
-    "yarn.lock",
-    "pnpm-lock.yaml",
     "tsconfig.json",
     # Java/JVM
     "pom.xml",
@@ -213,11 +209,7 @@ ANCHOR_FILES: set[str] = {
     "docker-compose.yaml",
     "compose.yml",
     "compose.yaml",
-    # General
-    "README.md",
-    "README.rst",
-    "README.txt",
-    "README",
+    # General — NOTE: README excluded, too common to reliably signal a project root
 }
 
 # Infrastructure/support files that inherit their project root's cluster
@@ -377,11 +369,14 @@ KNOWN_FILENAMES: dict[str, str] = {
     ".env.local": "config",
     ".env.production": "config",
     ".gitignore": "config",
+    ".gitattributes": "config",
     ".dockerignore": "config",
     ".editorconfig": "config",
     ".flake8": "config",
     ".eslintrc": "config",
     ".prettierrc": "config",
+    "LICENSE": "document",
+    "LICENCE": "document",
 }
 
 

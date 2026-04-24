@@ -63,6 +63,19 @@ _DEFAULT_PATTERNS: list[str] = [
     ".mypy_cache/",
     ".ruff_cache/",
     "__pypackages__/",
+    # Lock files (no semantic content)
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml",
+    "poetry.lock",
+    "Cargo.lock",
+    "go.sum",
+    "Gemfile.lock",
+    # Database artifacts
+    "chroma_db/",
+    "*.sqlite",
+    "*.sqlite3",
+    "*.db",
     # Version control
     ".git/",
     ".svn/",
