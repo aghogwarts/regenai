@@ -142,6 +142,25 @@ def _detect_project_roots(root_dir: Path, all_dirs: set[Path]) -> dict[Path, str
                     roots[dir_path] = rel
                     break
 
+    # Remove nested roots — if a root is inside another root, the parent wins.
+    # e.g. expenses-pwa\backend gets absorbed into expenses-pwa
+    to_remove: set[Path] = set()
+    sorted_roots = sorted(roots.keys())
+    for i, child in enumerate(sorted_roots):
+        for parent in sorted_roots[:i]:
+            if parent in to_remove:
+                continue
+            try:
+                child.relative_to(parent)
+                # child is inside parent — remove child
+                to_remove.add(child)
+                break
+            except ValueError:
+                continue
+
+    for path in to_remove:
+        del roots[path]
+
     return roots
 
 
