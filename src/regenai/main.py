@@ -18,6 +18,7 @@ from regenai.registry import (
     print_registry_summary,
     print_registry_detail,
 )
+from regenai.parser import parse_all
 
 
 console = Console()
@@ -119,11 +120,18 @@ def cli() -> None:
         console.print("[dim]Aborted.[/dim]")
         sys.exit(0)
 
-    # -- Modules 2+ will be called here sequentially --
-    # TODO: parser.py → chunker.py → embedder.py → clusterer.py → raptor.py → ...
+    # -- Module 2: Parse all files --
+    console.print("[bold]Parsing files...[/bold]")
+    parsed_files = parse_all(registry.entries)
+
+    successful = [p for p in parsed_files if p.parse_success]
+    console.print(f"  [dim]{len(successful)} files ready for chunking[/dim]")
+
+    # -- Modules 3+ will be called here sequentially --
+    # TODO: chunker.py → embedder.py → clusterer.py → raptor.py → ...
     console.print()
-    console.print("[yellow]Pipeline modules 2–10 not yet implemented.[/yellow]")
-    console.print("[dim]Next: parser.py (Module 2)[/dim]")
+    console.print("[yellow]Pipeline modules 3–10 not yet implemented.[/yellow]")
+    console.print("[dim]Next: chunker.py (Module 3)[/dim]")
 
 
 if __name__ == "__main__":
