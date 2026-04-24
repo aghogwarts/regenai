@@ -148,3 +148,63 @@ config 13
 └─────────────────────────────────────────────────────────────┴──────────┴────────────┴──────────┴───────────────────────────┴──────────┴──────────────────────────┘
 
 Dry run complete. No processing performed.
+
+<hr>
+
+(regenai) PS D:\work_dsi\regenai> uv run regenai
+
+ReGenAI — Project Directory Summarizer
+─────────────────────────────────────────
+
+Enter input directory path: ./Demo
+Enter output directory path (regenai-output):
+
+Model: llama3.1:8b
+
+Scan root: D:\work_dsi\regenai\Demo
+Files scanned: 89
+Files ignored: 58807
+Files oversized: 0
+Binary skipped: 0
+Files to process: 87
+
+Detected 4 project root(s):
+📁 8th-Sem-Project-Documents
+📁 digit-rss-tracker
+📁 expenses-pwa
+📁 simple-rag
+
+File type breakdown:
+document 42
+code 32
+config 13
+
+Proceed with 87 files? [y/n] (y): y
+Parsing files...
+Parse error: 8th-Sem-Project-Documents\Document_Template_PreReq\Front Page- external students Synopsis format.doc: soffice command was not found. Please install libreoffice
+on your system and try again.
+
+- Install instructions: https://www.libreoffice.org/get-help/install-howto/
+- Mac: https://formulae.brew.sh/cask/libreoffice
+- Debian: https://wiki.debian.org/LibreOffice
+  Parse error: 8th-Sem-Project-Documents\Document_Template_PreReq\Front Page- internal candidates Synopsis format.doc: soffice command was not found. Please install libreoffice
+  on your system and try again.
+
+- Install instructions: https://www.libreoffice.org/get-help/install-howto/
+- Mac: https://formulae.brew.sh/cask/libreoffice
+- Debian: https://wiki.debian.org/LibreOffice
+  Parse error: 8th-Sem-Project-Documents\Document_Template_PreReq\Synopsis format_2026.doc: soffice command was not found. Please install libreoffice
+  on your system and try again.
+
+- Install instructions: https://www.libreoffice.org/get-help/install-howto/
+- Mac: https://formulae.brew.sh/cask/libreoffice
+- Debian: https://wiki.debian.org/LibreOffice
+  Parse error: 8th-Sem-Project-Documents\Guidelines\Circular 008-Completion of requirements_0001.pdf: No text content extracted
+  Parsing files ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87/87
+  Parsed successfully: 83
+  Failed to parse: 4
+
+  83 files ready for chunking
+
+Pipeline modules 3–10 not yet implemented.
+Next: chunker.py (Module 3)
