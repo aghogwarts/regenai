@@ -21,6 +21,8 @@ from regenai.registry import (
 from regenai.parser import parse_all
 from regenai.chunker import chunk_all
 from regenai.embedder import embed_all
+from regenai.clusterer import cluster_all
+from regenai.refiner import refine_clusters
 
 
 console = Console()
@@ -166,11 +168,19 @@ def cli() -> None:
     console.print("[bold]Embedding chunks...[/bold]")
     persist_path = embed_all(chunks, input_dir)
 
-    # -- Modules 5+ will be called here sequentially --
-    # TODO: clusterer.py → raptor.py → ...
+    # -- Module 5: Cluster embeddings --
+    console.print("[bold]Clustering...[/bold]")
+    cluster_result = cluster_all(input_dir)
+
+    # -- Module 6: Refine clusters using structural signals --
+    console.print("[bold]Refining clusters...[/bold]")
+    refined_result = refine_clusters(cluster_result)
+
+    # -- Modules 7+ will be called here sequentially --
+    # TODO: raptor.py → output.py
     console.print()
-    console.print("[yellow]Pipeline modules 5–10 not yet implemented.[/yellow]")
-    console.print("[dim]Next: clusterer.py (Module 5)[/dim]")
+    console.print("[yellow]Pipeline modules 7–8 not yet implemented.[/yellow]")
+    console.print("[dim]Next: raptor.py (Module 7)[/dim]")
 
 
 if __name__ == "__main__":
