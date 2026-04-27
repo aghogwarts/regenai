@@ -15,7 +15,7 @@ dependencies = [
     # Embeddings & vector storage
     "sentence-transformers",
     "chromadb",
-    "torch",
+    "torch>=2.6",
 
     # Clustering
     "umap-learn",
@@ -45,9 +45,9 @@ packages = ["src/regenai"]
 # Pin torch to CUDA 12.1 build for GPU acceleration.
 # Users without NVIDIA GPU: remove this section and torch will default to CPU.
 [[tool.uv.index]]
-name = "pytorch-cu121"
-url = "https://download.pytorch.org/whl/cu121"
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu124"
 explicit = true
 
 [tool.uv.sources]
-torch = { index = "pytorch-cu121" }
+torch = { index = "pytorch-cuda" }

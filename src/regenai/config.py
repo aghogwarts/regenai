@@ -13,8 +13,8 @@ from dataclasses import dataclass, field
 # Model configuration
 # ---------------------------------------------------------------------------
 
-EMBEDDING_MODEL: str = "BAAI/bge-m3"
-EMBEDDING_DIMENSIONS: int = 1024  # bge-m3 outputs 1024-dim dense vectors
+EMBEDDING_MODEL: str = "BAAI/bge-base-en-v1.5"
+EMBEDDING_DIMENSIONS: int = 768  # bge-base-en-v1.5 outputs 768-dim dense vectors
 
 DEFAULT_LLM_MODEL: str = "llama3.1:8b"
 OLLAMA_BASE_URL: str = "http://localhost:11434"
