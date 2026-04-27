@@ -23,6 +23,7 @@ from regenai.chunker import chunk_all
 from regenai.embedder import embed_all
 from regenai.clusterer import cluster_all
 from regenai.refiner import refine_clusters
+from regenai.raptor import raptor_summarize
 
 
 console = Console()
@@ -176,11 +177,15 @@ def cli() -> None:
     console.print("[bold]Refining clusters...[/bold]")
     refined_result = refine_clusters(cluster_result)
 
-    # -- Modules 7+ will be called here sequentially --
-    # TODO: raptor.py → output.py
+    # -- Module 7: RAPTOR summarization via Ollama --
+    console.print("[bold]Generating summaries via Ollama...[/bold]")
+    project_summaries = raptor_summarize(refined_result, input_dir, args.model)
+
+    # -- Module 8 will be called here --
+    # TODO: output.py
     console.print()
-    console.print("[yellow]Pipeline modules 7–8 not yet implemented.[/yellow]")
-    console.print("[dim]Next: raptor.py (Module 7)[/dim]")
+    console.print("[yellow]Pipeline module 8 not yet implemented.[/yellow]")
+    console.print("[dim]Next: output.py (Module 8)[/dim]")
 
 
 if __name__ == "__main__":
