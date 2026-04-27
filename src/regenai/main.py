@@ -19,6 +19,8 @@ from regenai.registry import (
     print_registry_detail,
 )
 from regenai.parser import parse_all
+from regenai.chunker import chunk_all
+from regenai.embedder import embed_all
 
 
 console = Console()
@@ -126,12 +128,49 @@ def cli() -> None:
 
     successful = [p for p in parsed_files if p.parse_success]
     console.print(f"  [dim]{len(successful)} files ready for chunking[/dim]")
-
-    # -- Modules 3+ will be called here sequentially --
-    # TODO: chunker.py → embedder.py → clusterer.py → raptor.py → ...
     console.print()
-    console.print("[yellow]Pipeline modules 3–10 not yet implemented.[/yellow]")
-    console.print("[dim]Next: chunker.py (Module 3)[/dim]")
+
+    # -- Module 3: Chunk all parsed files --
+    console.print("[bold]Chunking files...[/bold]")
+    chunks = chunk_all(parsed_files)
+
+    # -- TEMP: Dump chunks to JSON for inspection (safe to delete) --
+    import json
+
+    chunks_dump = [
+        {
+            "id": c.id,
+            "source_file": str(c.source_file),
+            "file_type": c.file_type,
+            "language": c.language,
+            "chunk_index": c.chunk_index,
+            "total_chunks": c.total_chunks,
+            "project_root": c.project_root,
+            "is_support_file": c.is_support_file,
+            "name_prefix": c.name_prefix,
+            "token_estimate": len(c.text) // 4,
+            "text": c.text,
+        }
+        for c in chunks
+    ]
+    dump_path = Path("_chunks_debug.json")
+    dump_path.write_text(
+        json.dumps(chunks_dump, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    console.print(
+        f"  [dim]Chunks dumped to {dump_path.resolve()} (safe to delete)[/dim]"
+    )
+    # -- END TEMP --
+
+    # -- Module 4: Embed chunks and store in ChromaDB --
+    console.print("[bold]Embedding chunks...[/bold]")
+    persist_path = embed_all(chunks, input_dir)
+
+    # -- Modules 5+ will be called here sequentially --
+    # TODO: clusterer.py → raptor.py → ...
+    console.print()
+    console.print("[yellow]Pipeline modules 5–10 not yet implemented.[/yellow]")
+    console.print("[dim]Next: clusterer.py (Module 5)[/dim]")
 
 
 if __name__ == "__main__":

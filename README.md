@@ -991,3 +991,159 @@ What's your preference: full `unstructured[local-inference]` for maximum format 
 Also — go ahead and run those `ollama` commands when you get a chance and let me know what `ollama list` shows. Once you confirm the model is pulled and the test directory is ready, we start with Module 1.
 
 <hr>
+
+Let me lay out what Module 2 does before writing code, since we agreed on plan-first.
+
+## Parser Design
+
+**Input:** `FileEntry` from the registry.
+
+**Output:** `ParsedFile` with extracted text, sections if detectable, and metadata.
+
+**Routing logic:**
+
+- **PDF** → `pdfplumber` first (lightweight, reliable for digital PDFs). If it returns empty text, fall back to `unstructured.partition_pdf` (handles scanned PDFs with OCR since you installed the full package).
+- **DOCX** → `unstructured.partition_docx`
+- **DOC** (old format) → `unstructured.partition_doc`
+- **PPTX** → `unstructured.partition_pptx` — preserves slide boundaries as section markers
+- **XLSX** → `openpyxl` directly — extract sheet names + cell content as structured text. Unstructured's xlsx handling is weaker.
+- **Code files** → direct `read()` with encoding detection via `chardet`
+- **Markdown/text/tex** → direct `read()`
+- **Config (json/yaml/toml)** → direct `read()`
+- **Everything else** → attempt direct `read()`, graceful failure
+
+**Key decisions:**
+
+1. For PPTX, each slide becomes a separate section — this feeds into the chunker so slides stay as atomic units
+2. For XLSX, format is `"Sheet: <name>\n<row1>\n<row2>..."` per sheet — tabular data as readable text
+3. Encoding detection only triggers if UTF-8 read fails — no need to run `chardet` on every file
+4. Parse errors are caught per-file, logged, and the file gets `parse_success = False` — pipeline continues
+
+Any changes before I write it?
+
+<hr>
+
+## Module 3: Chunker Design
+
+**Input:** `ParsedFile` from the parser.
+
+**Output:** List of `Chunk` objects with provenance metadata.
+
+**Three chunking strategies based on file type:**
+
+**Code files** — tree-sitter AST parsing. Split at function/class boundaries. If a function exceeds ~800 tokens, keep it whole (don't split mid-function). If the entire file is under ~500 tokens, embed whole. Falls back to regex-based splitting (detect `def `, `class `, `function `) if tree-sitter doesn't have a grammar for that language.
+
+**Documents with sections** — the parser already detected section boundaries (slides in pptx, pages in pdf, sheets in xlsx, LaTeX sections). Use those as primary split points. If a section exceeds ~800 tokens, sub-split at paragraph breaks with ~100 token overlap.
+
+**Documents without sections / plain text** — split at paragraph boundaries (double newlines). If paragraphs are too long, use sentence-level splitting. Overlap of ~100 tokens between adjacent chunks.
+
+**Every chunk carries:**
+
+```python
+@dataclass
+class Chunk:
+    id: str                    # hash of source path + chunk index
+    text: str
+    source_file: Path          # relative path
+    file_type: str             # inherited from FileEntry
+    language: str | None       # for code files
+    chunk_index: int
+    total_chunks: int
+    project_root: str | None   # inherited from FileEntry
+    is_support_file: bool      # inherited
+    name_prefix: str | None    # inherited
+```
+
+**Key decision:** For support/config files (Dockerfile, .gitignore, requirements.txt, package.json) — these are almost always small. Embed whole, no splitting. Their value is associating with their project, not their internal structure.
+
+Anything you'd change before I write it?
+
+<hr>
+
+## Module 4: Embedder Design
+
+**Input:** List of `Chunk` objects from the chunker.
+
+**Output:** ChromaDB collection populated with embeddings + metadata.
+
+**What it does:**
+
+1. Loads bge-m3 via `sentence-transformers` (first run downloads ~2.3GB model, cached after)
+2. Batch-embeds all chunks (batches of 32 to stay within your 5GB VRAM)
+3. Stores in ChromaDB with full metadata per chunk — `source_file`, `file_type`, `project_root`, `name_prefix`, `is_support_file`, `language`
+4. Also computes file-level embeddings (mean-pool all chunk embeddings per file) and stores in a separate collection
+
+**ChromaDB setup:**
+
+- Persistent storage in `.regenai_store/` inside the input directory (already in our ignore list so it won't get re-scanned)
+- Two collections: `regenai_chunks` (chunk-level) and `regenai_files` (file-level pooled)
+- Collections get wiped and rebuilt each run — no stale data
+
+**One concern:** bge-m3 is 2.3GB. With your 5GB VRAM, it'll fit but leaves ~2.7GB for torch overhead. If it OOMs, we fall back to CPU embedding which is slower but works fine with 32GB RAM. The code will handle this automatically — try GPU, catch OOM, retry on CPU.
+
+**Estimated time on your hardware:** ~87 files producing maybe 150-250 chunks, each embedded in batches of 32. On GPU: ~30 seconds. On CPU: ~2-3 minutes. Either way, one-time cost per run.
+
+Anything you'd change?
+
+<hr>
+
+Two different roles in the pipeline:
+
+**bge-m3** = **embedding model**. Converts text into numerical vectors (1024 dimensions). Used for clustering — turns "this chunk talks about authentication" into a point in vector space near other auth-related chunks. We decided on this one early in the architecture discussion. It's not an LLM, it can't generate text, it just produces numbers.
+
+**Llama 3.1 8B / Qwen 2.5 7B / Mistral 7B** = **LLM models**. These generate the actual summaries in the RAPTOR loop (Module 6). We said we'd benchmark all three on your test directory and pick the winner.
+
+They work at different pipeline stages:
+
+```
+Chunks → [bge-m3 embeds them] → Vectors → [cluster] → Clusters → [LLM summarizes] → Summaries
+```
+
+Good to proceed with the embedder?
+
+<hr>
+
+Let it finish for now — it'll complete, just slowly (~5-10 minutes for your chunk count).
+
+Once it's done, check what error it printed on the `GPU failed (...)` line and share it. Common causes:
+
+1. **Torch installed without CUDA** — `uv` might have pulled the CPU-only torch wheel. Fixable by reinstalling torch with CUDA.
+2. **VRAM too tight** — bge-m3 (2.3GB) + batch of 32 might exceed 5GB. Fixable by reducing batch size.
+3. **CUDA version mismatch** — your Quadro P2000 drivers might need a specific CUDA version.
+
+We can fix it after this run completes. The embeddings will be identical regardless of GPU vs CPU — just speed difference.
+
+<hr>
+
+The error is clear: **"Torch not compiled with CUDA enabled"**. `uv` installed the CPU-only torch wheel. The model and embeddings are fine, just slow.
+
+Let it finish this run. After it completes, we fix it with:
+
+```
+uv pip install torch --index-url https://download.pytorch.org/whl/cu121
+```
+
+This reinstalls torch with CUDA 12.1 support. Your Quadro P2000 supports it. Future runs will embed on GPU (~30 seconds instead of ~8 minutes).
+
+Share the full output once it's done.
+
+<hr>
+
+Tricky problem. The CUDA version of torch depends on the user's GPU and drivers — not everyone has NVIDIA. Hardcoding it in `pyproject.toml` would break the install for users without CUDA.
+
+Best approach: keep `pyproject.toml` as-is (pulls CPU torch by default, works everywhere), and document the GPU setup as a post-install step in the README alongside Tesseract and Ollama:
+
+```
+## System Dependencies
+
+1. Ollama — `winget install Ollama.Ollama`
+2. Tesseract — `winget install UB-Mannheim.TesseractOCR`
+3. GPU acceleration (optional, NVIDIA only):
+   uv pip install torch --index-url https://download.pytorch.org/whl/cu121
+```
+
+This way CPU users get a working install out of the box, GPU users run one extra command. Same pattern PyTorch itself recommends.
+
+Has the embedding run finished?
+
+<hr>
