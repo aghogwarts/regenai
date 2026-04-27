@@ -348,26 +348,35 @@ def _print_refined_summary(result: RefinedResult) -> None:
     table.add_column("Cluster", justify="center")
     table.add_column("Chunks", justify="right")
     table.add_column("Files", justify="right")
+    table.add_column("Avg Conf", justify="right")
     table.add_column("Top File Types", max_width=30)
     table.add_column("Project Roots", max_width=40)
 
-    cluster_data: dict[int, list[dict]] = defaultdict(list)
+    cluster_data: dict[int, list[tuple[ClusterAssignment, dict]]] = defaultdict(list)
     for assignment, meta in zip(result.assignments, result.chunk_metadata):
         cid = -1 if assignment.is_noise else assignment.primary_cluster
-        cluster_data[cid].append(meta)
+        cluster_data[cid].append((assignment, meta))
 
     for cid in sorted(cluster_data.keys()):
-        metas = cluster_data[cid]
-        chunk_count = len(metas)
-        files = set(m["source_file"] for m in metas)
+        pairs = cluster_data[cid]
+        chunk_count = len(pairs)
+        files = set(m["source_file"] for _, m in pairs)
         file_count = len(files)
-        type_counts = Counter(m["file_type"] for m in metas)
+        avg_conf = sum(a.confidence for a, _ in pairs) / chunk_count
+        type_counts = Counter(m["file_type"] for _, m in pairs)
         top_types = ", ".join(f"{t}({c})" for t, c in type_counts.most_common(3))
-        roots = set(m["project_root"] for m in metas if m["project_root"])
+        roots = set(m["project_root"] for _, m in pairs if m["project_root"])
         roots_str = ", ".join(sorted(roots)) if roots else "[dim]unanchored[/dim]"
 
         label = "noise" if cid == -1 else str(cid)
-        table.add_row(label, str(chunk_count), str(file_count), top_types, roots_str)
+        table.add_row(
+            label,
+            str(chunk_count),
+            str(file_count),
+            f"{avg_conf:.2f}",
+            top_types,
+            roots_str,
+        )
 
     console.print(table)
     console.print()
