@@ -45,38 +45,67 @@ class RefinedResult:
 
 
 # ---------------------------------------------------------------------------
-# Helper: find dominant cluster for a project root
+# Helper: find all pure clusters per project + compute centroids
 # ---------------------------------------------------------------------------
 
 
-def _find_project_cluster_map(
+def _find_project_clusters(
     assignments: list[ClusterAssignment],
     metadata: list[dict],
-) -> dict[str, int]:
+) -> dict[str, set[int]]:
     """
-    For each project root, find which cluster contains the most chunks
-    from that project (excluding noise). This is the "home cluster"
-    for that project.
+    For each project root, find ALL clusters that contain chunks
+    from that project (excluding noise).
 
     Returns:
-        Mapping of project_root → cluster_id
+        Mapping of project_root → set of cluster_ids
     """
-    # Count chunks per (project_root, cluster) pair
-    project_cluster_counts: dict[str, Counter] = defaultdict(Counter)
+    project_clusters: dict[str, set[int]] = defaultdict(set)
 
     for assignment, meta in zip(assignments, metadata):
         root = meta.get("project_root", "")
         if not root or assignment.is_noise:
             continue
-        project_cluster_counts[root][assignment.primary_cluster] += 1
+        project_clusters[root].add(assignment.primary_cluster)
 
-    # For each project, pick the cluster with the most chunks
-    project_home: dict[str, int] = {}
-    for root, counts in project_cluster_counts.items():
-        if counts:
-            project_home[root] = counts.most_common(1)[0][0]
+    return dict(project_clusters)
 
-    return project_home
+
+def _compute_cluster_centroids(
+    assignments: list[ClusterAssignment],
+    reduced_embeddings: np.ndarray,
+) -> dict[int, np.ndarray]:
+    """Compute centroid of each cluster in reduced embedding space."""
+    cluster_points: dict[int, list[int]] = defaultdict(list)
+    for i, a in enumerate(assignments):
+        if not a.is_noise and a.primary_cluster >= 0:
+            cluster_points[a.primary_cluster].append(i)
+
+    centroids: dict[int, np.ndarray] = {}
+    for cid, indices in cluster_points.items():
+        centroids[cid] = np.mean(reduced_embeddings[indices], axis=0)
+
+    return centroids
+
+
+def _find_nearest_cluster(
+    point: np.ndarray,
+    candidate_clusters: set[int],
+    centroids: dict[int, np.ndarray],
+) -> int | None:
+    """Find the nearest cluster from a set of candidates by centroid distance."""
+    best_cluster = None
+    best_dist = float("inf")
+
+    for cid in candidate_clusters:
+        if cid not in centroids:
+            continue
+        dist = float(np.linalg.norm(point - centroids[cid]))
+        if dist < best_dist:
+            best_dist = dist
+            best_cluster = cid
+
+    return best_cluster
 
 
 # ---------------------------------------------------------------------------
@@ -91,12 +120,14 @@ def _split_mixed_clusters(
 ) -> tuple[list[ClusterAssignment], int]:
     """
     For clusters containing chunks from multiple project roots,
-    reassign each chunk to the home cluster of its project root.
+    reassign each chunk to the NEAREST pure cluster belonging to
+    its project (by embedding distance), preserving semantic subclusters.
 
     Unanchored chunks (no project root) in mixed clusters stay in
-    their current cluster — they'll be resolved by semantic similarity.
+    their current cluster.
     """
-    project_home = _find_project_cluster_map(assignments, metadata)
+    project_clusters = _find_project_clusters(assignments, metadata)
+    centroids = _compute_cluster_centroids(assignments, reduced_embeddings)
     splits_performed = 0
 
     # Identify mixed clusters
@@ -113,19 +144,29 @@ def _split_mixed_clusters(
     if not mixed_clusters:
         return assignments, 0
 
-    # Reassign chunks in mixed clusters
+    # Reassign chunks in mixed clusters to nearest same-project cluster
     new_assignments: list[ClusterAssignment] = []
-    for assignment, meta in zip(assignments, metadata):
+    for i, (assignment, meta) in enumerate(zip(assignments, metadata)):
         if assignment.primary_cluster in mixed_clusters and not assignment.is_noise:
             root = meta.get("project_root", "")
-            if root and root in project_home:
-                home_cluster = project_home[root]
-                if home_cluster != assignment.primary_cluster:
-                    # Move to home cluster
+            if root and root in project_clusters:
+                # Find all clusters that belong to this project
+                # (excluding the current mixed cluster itself)
+                candidates = project_clusters[root] - mixed_clusters
+                if not candidates:
+                    # All clusters for this project are mixed — keep current
+                    new_assignments.append(assignment)
+                    continue
+
+                # Pick the nearest one by embedding distance
+                nearest = _find_nearest_cluster(
+                    reduced_embeddings[i], candidates, centroids
+                )
+                if nearest is not None and nearest != assignment.primary_cluster:
                     new_assignments.append(
                         ClusterAssignment(
                             chunk_id=assignment.chunk_id,
-                            primary_cluster=home_cluster,
+                            primary_cluster=nearest,
                             confidence=assignment.confidence,
                             secondary_cluster=assignment.primary_cluster,
                             secondary_confidence=GMM_SECONDARY_THRESHOLD,
@@ -152,25 +193,22 @@ def _reassign_noise(
 ) -> tuple[list[ClusterAssignment], int]:
     """
     Noise points that have a project_root tag get assigned to the
-    dominant cluster for that project.
+    nearest cluster belonging to that project (by embedding distance).
 
     Noise points without a project root get assigned to the nearest
-    cluster by embedding distance (cosine similarity in reduced space).
+    cluster overall, if within a reasonable distance threshold.
 
-    Truly isolated points (very far from all clusters) stay as noise.
+    Truly isolated points stay as noise.
     """
-    project_home = _find_project_cluster_map(assignments, metadata)
+    project_clusters = _find_project_clusters(assignments, metadata)
+    centroids = _compute_cluster_centroids(assignments, reduced_embeddings)
     noise_reassigned = 0
 
-    # Compute cluster centroids in reduced space
+    # Precompute average intra-cluster distances for the threshold check
     cluster_points: dict[int, list[int]] = defaultdict(list)
-    for i, assignment in enumerate(assignments):
-        if not assignment.is_noise and assignment.primary_cluster >= 0:
-            cluster_points[assignment.primary_cluster].append(i)
-
-    centroids: dict[int, np.ndarray] = {}
-    for cid, indices in cluster_points.items():
-        centroids[cid] = np.mean(reduced_embeddings[indices], axis=0)
+    for i, a in enumerate(assignments):
+        if not a.is_noise and a.primary_cluster >= 0:
+            cluster_points[a.primary_cluster].append(i)
 
     new_assignments: list[ClusterAssignment] = []
 
@@ -180,52 +218,47 @@ def _reassign_noise(
             continue
 
         root = meta.get("project_root", "")
+        point = reduced_embeddings[i]
 
-        # Strategy 1: Has a project root — assign to project's home cluster
-        if root and root in project_home:
-            new_assignments.append(
-                ClusterAssignment(
-                    chunk_id=assignment.chunk_id,
-                    primary_cluster=project_home[root],
-                    confidence=0.6,  # moderate confidence for noise reassignment
-                    secondary_cluster=None,
-                    secondary_confidence=None,
-                    is_noise=False,
+        # Strategy 1: Has a project root — find nearest cluster for that project
+        if root and root in project_clusters:
+            candidates = project_clusters[root]
+            nearest = _find_nearest_cluster(point, candidates, centroids)
+            if nearest is not None:
+                new_assignments.append(
+                    ClusterAssignment(
+                        chunk_id=assignment.chunk_id,
+                        primary_cluster=nearest,
+                        confidence=0.6,
+                        secondary_cluster=None,
+                        secondary_confidence=None,
+                        is_noise=False,
+                    )
                 )
-            )
-            noise_reassigned += 1
-            continue
+                noise_reassigned += 1
+                continue
 
-        # Strategy 2: No project root — find nearest cluster by distance
+        # Strategy 2: No project root — find nearest cluster overall
         if centroids:
-            point = reduced_embeddings[i]
-            min_dist = float("inf")
-            nearest_cluster = -1
+            all_clusters = set(centroids.keys())
+            nearest = _find_nearest_cluster(point, all_clusters, centroids)
 
-            for cid, centroid in centroids.items():
-                dist = np.linalg.norm(point - centroid)
-                if dist < min_dist:
-                    min_dist = dist
-                    nearest_cluster = cid
-
-            # Only reassign if reasonably close (within 2x average intra-cluster distance)
-            if nearest_cluster >= 0:
-                cluster_indices = cluster_points[nearest_cluster]
+            if nearest is not None and nearest in cluster_points:
+                # Only reassign if within 2x average intra-cluster distance
                 avg_dist = np.mean(
                     [
-                        np.linalg.norm(
-                            reduced_embeddings[j] - centroids[nearest_cluster]
-                        )
-                        for j in cluster_indices
+                        np.linalg.norm(reduced_embeddings[j] - centroids[nearest])
+                        for j in cluster_points[nearest]
                     ]
                 )
+                actual_dist = np.linalg.norm(point - centroids[nearest])
 
-                if min_dist <= avg_dist * 2.0:
+                if actual_dist <= avg_dist * 2.0:
                     new_assignments.append(
                         ClusterAssignment(
                             chunk_id=assignment.chunk_id,
-                            primary_cluster=nearest_cluster,
-                            confidence=0.4,  # low confidence for distance-based reassignment
+                            primary_cluster=nearest,
+                            confidence=0.4,
                             secondary_cluster=None,
                             secondary_confidence=None,
                             is_noise=False,
