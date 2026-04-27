@@ -378,8 +378,22 @@ def _print_refined_summary(result: RefinedResult) -> None:
         avg_conf = sum(a.confidence for a, _ in pairs) / chunk_count
         type_counts = Counter(m["file_type"] for _, m in pairs)
         top_types = ", ".join(f"{t}({c})" for t, c in type_counts.most_common(3))
+
+        # Show project roots + count of unanchored files
         roots = set(m["project_root"] for _, m in pairs if m["project_root"])
-        roots_str = ", ".join(sorted(roots)) if roots else "[dim]unanchored[/dim]"
+        unanchored_files = set(
+            m["source_file"] for _, m in pairs if not m["project_root"]
+        )
+        n_unanchored = len(unanchored_files)
+
+        if roots and n_unanchored:
+            roots_str = (
+                ", ".join(sorted(roots)) + f" [dim]+{n_unanchored} unanchored[/dim]"
+            )
+        elif roots:
+            roots_str = ", ".join(sorted(roots))
+        else:
+            roots_str = f"[dim]unanchored ({n_unanchored} files)[/dim]"
 
         label = "noise" if cid == -1 else str(cid)
         table.add_row(
