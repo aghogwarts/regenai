@@ -120,11 +120,11 @@ def _split_mixed_clusters(
 ) -> tuple[list[ClusterAssignment], int]:
     """
     For clusters containing chunks from multiple project roots,
-    reassign each chunk to the NEAREST pure cluster belonging to
-    its project (by embedding distance), preserving semantic subclusters.
+    CONSERVATIVELY reassign: only move a chunk if a pure same-project
+    cluster is closer than the chunk's current (mixed) cluster.
 
-    Unanchored chunks (no project root) in mixed clusters stay in
-    their current cluster.
+    If the mixed cluster is the best semantic fit, the chunk stays.
+    This preserves semantic coherence over project purity.
     """
     project_clusters = _find_project_clusters(assignments, metadata)
     centroids = _compute_cluster_centroids(assignments, reduced_embeddings)
@@ -144,31 +144,44 @@ def _split_mixed_clusters(
     if not mixed_clusters:
         return assignments, 0
 
-    # Reassign chunks in mixed clusters to nearest same-project cluster
+    # Reassign only when a pure cluster is strictly closer
     new_assignments: list[ClusterAssignment] = []
     for i, (assignment, meta) in enumerate(zip(assignments, metadata)):
         if assignment.primary_cluster in mixed_clusters and not assignment.is_noise:
             root = meta.get("project_root", "")
             if root and root in project_clusters:
-                # Find all clusters that belong to this project
-                # (excluding the current mixed cluster itself)
+                # Find pure clusters for this project (exclude mixed ones)
                 candidates = project_clusters[root] - mixed_clusters
                 if not candidates:
-                    # All clusters for this project are mixed — keep current
+                    # No pure clusters exist for this project — stay put
                     new_assignments.append(assignment)
                     continue
 
-                # Pick the nearest one by embedding distance
-                nearest = _find_nearest_cluster(
-                    reduced_embeddings[i], candidates, centroids
-                )
-                if nearest is not None and nearest != assignment.primary_cluster:
+                # Distance to current (mixed) cluster centroid
+                current_cid = assignment.primary_cluster
+                if current_cid not in centroids:
+                    new_assignments.append(assignment)
+                    continue
+
+                point = reduced_embeddings[i]
+                current_dist = float(np.linalg.norm(point - centroids[current_cid]))
+
+                # Find nearest pure cluster
+                nearest = _find_nearest_cluster(point, candidates, centroids)
+                if nearest is None:
+                    new_assignments.append(assignment)
+                    continue
+
+                nearest_dist = float(np.linalg.norm(point - centroids[nearest]))
+
+                # Only move if the pure cluster is CLOSER than current
+                if nearest_dist < current_dist:
                     new_assignments.append(
                         ClusterAssignment(
                             chunk_id=assignment.chunk_id,
                             primary_cluster=nearest,
                             confidence=assignment.confidence,
-                            secondary_cluster=assignment.primary_cluster,
+                            secondary_cluster=current_cid,
                             secondary_confidence=GMM_SECONDARY_THRESHOLD,
                             is_noise=False,
                         )
