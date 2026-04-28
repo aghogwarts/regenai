@@ -1,0 +1,2306 @@
+{
+  "10": [
+    {
+      "chunk_id": "d8bd33c49b2d1f6a",
+      "source_file": "8th-Sem-Project-Documents\\.gitattributes",
+      "file_type": "config",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "# Auto detect text files and perform LF normalization\n* text=auto"
+    },
+    {
+      "chunk_id": "c1f0759843bb8118",
+      "source_file": "Certificates\\PROJECT_IDEA.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "IMPLEMENTATION PLAN: PROJECT REGENAI (RAPTOR-BASED)\nObjective: To transform a disorganized, \"messy\" local directory or wiki into a\nstructured, semantically categorized, and fully summarized corporate "
+    },
+    {
+      "chunk_id": "6f5bc8858a21d0e0",
+      "source_file": "Certificates\\PROJECT_IDEA.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "Phase 2: Recursive Semantic Clustering (The RAPTOR Loop)\n The Action: Building the \"Tree\" from the bottom up.\n Implementation: 1. Level 0: Embed all file chunks.\n2. Clustering: Use GMM to group thes"
+    },
+    {
+      "chunk_id": "2e0b4b01ba055028",
+      "source_file": "Certificates\\PROJECT_IDEA.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "4. Final Output Deliverables\n1. Regenerated Directory: A brand new, clean physical folder structure created on\nthe local drive.\n2. Manifest File (README.md / Structure.json): A file in every folder co"
+    },
+    {
+      "chunk_id": "da7bd4ece8bfcd52",
+      "source_file": "Certificates\\PROJECT_IDEA.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "The 4-Step RAPTOR Loop\nStep 1: Leaf Node Creation (The Foundation)\nWe take your messy local files and break them into small \"leaf nodes\" (chunks).\n Local Action: Use Unstructured.io to extract text f"
+    },
+    {
+      "chunk_id": "0f8ab1593d25120e",
+      "source_file": "Certificates\\PROJECT_IDEA.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": " Stop Condition: We keep doing this until we have one single \"Root\" summary that\ndescribes the entire Wiki.\nHow it Regenerates Your Structure\nOnce the RAPTOR tree is built, we \"flip\" it to create you"
+    },
+    {
+      "chunk_id": "37b309545fe2fed6",
+      "source_file": "deep-research-report.md",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "# Inventory: Crawl and Extract Content  \nFirst, recursively traverse the input directory (e.g. with Python’s `os.walk`) to list all files and subfolders.  Identify relevant file types (source code fil"
+    },
+    {
+      "chunk_id": "ab2dcd14ee65b210",
+      "source_file": "deep-research-report.md",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "】.  After splitting, convert each chunk into an embedding using a model (e.g. OpenAI’s text-embedding-ada or a Sentence Transformer).  Store all embeddings in a vector database (e.g. Pinecone, FAISS, "
+    },
+    {
+      "chunk_id": "16099ded06e17cb9",
+      "source_file": "deep-research-report.md",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": ", then summarize those summaries into a higher-level overview【42†L293-L299】.  Another method is directly prompting the LLM on all chunk texts (if under context limit) or on their key sentences. A blen"
+    },
+    {
+      "chunk_id": "3f28192fce014d49",
+      "source_file": "deep-research-report.md",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "-reduce summarization) to generate a detailed markdown summary, citing sources; and (5) validate the output (fact-check against files, adjust clusters or prompts)【19†L129-L137】【30†L49-L53】. This layer"
+    },
+    {
+      "chunk_id": "884e7f9ac33c6c3f",
+      "source_file": "digit-rss-tracker\\.gitattributes",
+      "file_type": "config",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "# Auto detect text files and perform LF normalization\n* text=auto"
+    },
+    {
+      "chunk_id": "684bc678efea4ce2",
+      "source_file": "digit-rss-tracker\\.gitignore",
+      "file_type": "config",
+      "project_root": "digit-rss-tracker",
+      "confidence": 0.6,
+      "text_preview": "# Byte-compiled / optimized / DLL files\n__pycache__/\n*.py[cod]\n*$py.class\n\n# C extensions\n*.so\n\n# Distribution / packaging\n.Python\nbuild/\ndevelop-eggs/\ndist/\ndownloads/\neggs/\n.eggs/\nlib/\nlib64/\nparts/"
+    },
+    {
+      "chunk_id": "cf6dc7aea124a0c7",
+      "source_file": "digit-rss-tracker\\checker.py",
+      "file_type": "code",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "def load_seen_articles():\n    \"\"\"Read seen_articles.txt and return a set of already-notified URLs.\"\"\"\n    if not os.path.exists(SEEN_FILE):\n        return set()\n    with open(SEEN_FILE, \"r\") as f:\n   "
+    },
+    {
+      "chunk_id": "295730ebb1522c93",
+      "source_file": "digit-rss-tracker\\checker.py",
+      "file_type": "code",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "def save_seen_article(url):\n    \"\"\"Append a new URL to seen_articles.txt.\"\"\"\n    with open(SEEN_FILE, \"a\") as f:\n        f.write(url + \"\\n\")"
+    },
+    {
+      "chunk_id": "e38a7235f96a29ec",
+      "source_file": "simple-rag\\simple-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_pdf(path: str) -> List[Document]:\n    reader = PdfReader(path)\n    docs = []\n    for i, page in enumerate(reader.pages):\n        text = page.extract_text() or \"\"\n        docs.append(\n        "
+    },
+    {
+      "chunk_id": "4d38407b06e0ee2a",
+      "source_file": "simple-rag\\simple-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_txt(path: str) -> List[Document]:\n    with open(path, \"r\", encoding=\"utf-8\") as f:\n        text = f.read()\n    return [Document(page_content=text, metadata={\"source\": path})]"
+    },
+    {
+      "chunk_id": "15d3e33e5ec78348",
+      "source_file": "simple-rag\\simple-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_docx(path: str) -> List[Document]:\n    # docx2txt extracts the full text — create a single Document\n    text = docx2txt.process(path) or \"\"\n    return [Document(page_content=text, metadata={\""
+    },
+    {
+      "chunk_id": "049010fcb18a0658",
+      "source_file": "simple-rag\\simple-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_document(path: str) -> List[Document]:\n    path = os.path.abspath(path)\n    if path.lower().endswith(\".pdf\"):\n        return load_pdf(path)\n    elif path.lower().endswith(\".txt\"):\n        ret"
+    },
+    {
+      "chunk_id": "62a493b7151a2ea6",
+      "source_file": "simple-rag\\simple-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def main(file_path: str):\n    # 1. Load document\n    documents = load_document(file_path)\n    print(f\"Loaded {len(documents)} document objects.\")\n\n    # 2. Split text into chunks\n    splitter = Recurs"
+    },
+    {
+      "chunk_id": "157c68c08a8a7d70",
+      "source_file": "simple-rag\\streamlit-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_pdf(path: str) -> List[Document]:\n    reader = PdfReader(path)\n    docs = []\n    for i, page in enumerate(reader.pages):\n        text = page.extract_text() or \"\"\n        docs.append(\n        "
+    },
+    {
+      "chunk_id": "733a5976ddf75df8",
+      "source_file": "simple-rag\\streamlit-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_txt(path: str) -> List[Document]:\n    with open(path, \"r\", encoding=\"utf-8\") as f:\n        text = f.read()\n    return [Document(page_content=text, metadata={\"source\": path})]"
+    },
+    {
+      "chunk_id": "561e7f98cd0d1b94",
+      "source_file": "simple-rag\\streamlit-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_docx(path: str) -> List[Document]:\n    text = docx2txt.process(path) or \"\"\n    return [Document(page_content=text, metadata={\"source\": path})]"
+    },
+    {
+      "chunk_id": "da6b501cd8cbf841",
+      "source_file": "simple-rag\\streamlit-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def load_document(path: str) -> List[Document]:\n    path = os.path.abspath(path)\n    if path.lower().endswith(\".pdf\"):\n        return load_pdf(path)\n    elif path.lower().endswith(\".txt\"):\n        ret"
+    },
+    {
+      "chunk_id": "04d0e3cf8f8beeb9",
+      "source_file": "simple-rag\\streamlit-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def build_pipeline(file_path: str, strict_mode: bool):\n    documents = load_document(file_path)\n    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)\n    chunks = splitter."
+    }
+  ],
+  "5": [
+    {
+      "chunk_id": "c45b25d96159747a",
+      "source_file": "8th-Sem-Project-Documents\\Ansh Goyal Internship Work Plan.xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Sheet: Sheet1\nActivities | January |  | February |  |  |  | March |  |  |  | April |  |  |  |  | May |  |  |  | June |  |  |  | \nJanuary: W1 (19-23), W2 (26-30), February: W1 (2-6), W2 (9-13), W3 (16-"
+    },
+    {
+      "chunk_id": "664d6f900a917e09",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 1\nSr. Date Details of work carried out Comments 1. 19/01/2026 Onboarding and introduction to the team 2. 20/01/2026 Introduction to the work and RAG 3. 21/01/2026 Courses on basics of LLMOps "
+    },
+    {
+      "chunk_id": "bc2da13c218f4808",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 2\nSr. Date Details of work carried out Comments 1. 26/01/2026 Republic Day Holiday 2. 27/01/2026 Induction Day for new joiners 3. 28/01/2026 Hands-on RAG: Exploring Langchain 4. 29/01/2026 Ha"
+    },
+    {
+      "chunk_id": "d309f1a6205e61a7",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 3\nSr. Date Details of work carried out Comments 1. 02/02/2026 Explore AI Agents 2. 03/02/2026 Hands-on RAG: Read about unstructured data pipeline 3. 04/02/2026 Mandatory Fresher Training 4. 0"
+    },
+    {
+      "chunk_id": "fa9e20d6e0a51945",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 4\nSr. Date Details of work carried out Comments 1. 09/02/2026 Hands-on RAG: Explored Unstructured Data parsing in RAG 2. 10/02/2026 Learning: Exploring AI Agents and their fundamentals 3. 11/"
+    },
+    {
+      "chunk_id": "c89bb90fb472b0e6",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 5\nSr. Date Details of work carried out Comments 1. 16/02/2026 Ideation of a Torque Deviation agentic system as an automobile manufacturing use case 2. 17/02/2026 Sick Leave 3. 18/02/2026 Addr"
+    },
+    {
+      "chunk_id": "40ada846b038f236",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 6\nSr. Date Details of work carried out Comments 1. 23/02/2026 User Level Training Fresher - ENOVIA 2. 24/02/2026 User Level Training Fresher - DELMIA 3. 25/02/2026 User Level Training Fresher"
+    },
+    {
+      "chunk_id": "ec64246f2e514c10",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 7\nSr. Date Details of work carried out Comments 1. 02/03/2026 Building the Torque Deviation Tool – Decision Branch with Basic Agent Loop. Ideation of Synthetic Data Generator Tool 2. 03/03/20"
+    },
+    {
+      "chunk_id": "fd635ccad2cec285",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 8\nSr. Date Details of work carried out Comments 1. 09/03/2026 DAL Testing- Install and create environment and understand the project with Amit and Sakshi 2. 10/03/2026 Torque Assistant- Impro"
+    },
+    {
+      "chunk_id": "06f8c6ca1fec441a",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 9\nSr. Date Details of work carried out Comments 1. 16/03/2026 Casual Leave – College Placements 2. 17/03/2026 Casual Leave – College Placements 3. 18/03/2026 DAL Testing Exploratory Data Anal"
+    },
+    {
+      "chunk_id": "91d31780f56e0e00",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 10\nSr. Date Details of work carried out Comments 1. 23/03/2026 DAL Testing- New Setup configuration 2. 24/03/2026 DAL Testing- Server and upload issues 3. 25/03/2026 DAL Testing- Time Series "
+    },
+    {
+      "chunk_id": "3e97c71a3b5178a6",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 11\nSr. Date Details of work carried out Comments 1. 30/03/2026 CCD Course and Exam, DAL Testing 2. 31/03/2026 CCD Course and Exam, SDG integration TVAE+CTGAN 3. 01/04/2026 Casual Leave – Fami"
+    },
+    {
+      "chunk_id": "ed5d013619468820",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 12\nSr. Date Details of work carried out Comments 1. 06/04/2026 DAL Testing Discussion, Torque Assistant add more checks 2. 07/04/2026 DAL Testing- Workflow testing + Discussion 3. 08/04/2026 "
+    },
+    {
+      "chunk_id": "acc1cf7cea8b83cd",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 13\nSr. Date Details of work carried out Comments 1. 13/04/2026 Torque Assistant move to chroma db, improve RAG querying, DAL Testing, SDG Frontend mockup 2. 14/04/2026 Prompt Engineering Webi"
+    },
+    {
+      "chunk_id": "3a23e9a42719530d",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 14\nSr. Date Details of work carried out Comments 1. 20/04/2026 Synthetic Data Generator- Connect Schema Backend to API Layer, DAL Testing 2. 21/04/2026 Synthetic Data Generator- Fix Schema re"
+    },
+    {
+      "chunk_id": "f2d79e7b5baa26d8",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 15\nSr. Date Details of work carried out Comments 1. 19/01/2026 2. 20/01/2026 3. 21/01/2026 4. 22/01/2026 5. 23/01/2026 Summary of the work done in the week: Challenges faced during the work: "
+    },
+    {
+      "chunk_id": "9ff89e9f087ce35a",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "iii"
+    },
+    {
+      "chunk_id": "81a7ab9db8da8e1c",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "5. PROJECT SCHEDULE\n➢ January 2026\n- DS Mandatory Training & Certification\n- RAG concepts Learning & Hands-on\n- Exploring AI Agents & Fundamentals\n➢ February 2026\n- Understand Manufacturing Operations"
+    },
+    {
+      "chunk_id": "e553e9e3645a5662",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "Workdone so far\nJan 2026: DS Mandatory Training, RAG & Agents\nfundamentals completed\nFeb 2026: Architecture defined; data schema\n(IncidentState) and generation pipeline implemented\nMar 2026: Full Lang"
+    },
+    {
+      "chunk_id": "af64bcc1b88be64d",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "[8] Boston Consulting Group, “AI agents,” 2024. [Online]. Available:\nhttps://www.bcg.com/capabilities/artificial-intelligence/ai-agents\n7"
+    },
+    {
+      "chunk_id": "50babdca2e0eed46",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\myref.bib",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "@electronic{sh07,\n  author        = \"Michael Shell\",\n  title         = \"{IEEE}tran Webpage on {CTAN}\",\n  url           = \"http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/\",\n  year       "
+    },
+    {
+      "chunk_id": "4a738e12f8be1e75",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Workdone So Far}\nIn this section include all those modules along with the results which have been completed."
+    },
+    {
+      "chunk_id": "cbae018219700789",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Remaining Work}\nIn this section list the remaining work."
+    },
+    {
+      "chunk_id": "9b7afcc3f526c105",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "[3] R. K. Gupta and S. D. Senturia, “Pull-in time dynamics as a measure of absolute\npressure,” in Proc. IEEE International Workshop on Microelectromechanical Systems\n(MEMS’97), Nagoya, Japan, Jan. 199"
+    },
+    {
+      "chunk_id": "07f9b7e10b2cc400",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_PreReq\\STUDENT PROJECT DIARY-UG_ 2026.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Week No. 1\nSl. No. Date Details of work carried out Comments Summary of the work done in the week: Challenges faced during the work: References: Remarks: Suggestions by the guide: Signature of Student"
+    },
+    {
+      "chunk_id": "6655bd61190cae89",
+      "source_file": "8th-Sem-Project-Documents\\README.md",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "# 8th-Sem-Project-Documents\nRepository to hold and track all documents and changes across them related to my 8th sem internship"
+    },
+    {
+      "chunk_id": "13641e3fe6d6c06b",
+      "source_file": "digit-rss-tracker\\LICENSE",
+      "file_type": "document",
+      "project_root": "digit-rss-tracker",
+      "confidence": 0.6,
+      "text_preview": "MIT License\n\nCopyright (c) 2026 Ansh Goyal\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\ni"
+    },
+    {
+      "chunk_id": "3c8872ab9fbd8dd4",
+      "source_file": "digit-rss-tracker\\test.md",
+      "file_type": "document",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "es/general/emotorads-kapil-mandlik-on-ai-iot-and-why-your-e-bike-is-smarter-than-you-think.html\n   Published: Sun, 05 Apr 2026 11:08:27 +0000\n\n8. Claude AI has functional emotions that influence behav"
+    },
+    {
+      "chunk_id": "6916461e88513a23",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Week 01\t|\tWelcome and Orientation"
+    },
+    {
+      "chunk_id": "35da2d43e9fbbde5",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 0.6,
+      "text_preview": "Week 03\t|\tSecOps Orientation and Induction"
+    },
+    {
+      "chunk_id": "40971a7cba671aba",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 0.6,
+      "text_preview": "Week 05\t|\tExploring SecOps Roles and Responsibilities"
+    },
+    {
+      "chunk_id": "c1dde1bd649e800c",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Week 06\t|\tHands-on Exposure and Mini Project"
+    },
+    {
+      "chunk_id": "2a793313a623fecf",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Week 07\t|\tMini Project and Completion"
+    },
+    {
+      "chunk_id": "4b25995a004524b6",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "ASSIGNMENTS"
+    },
+    {
+      "chunk_id": "d5dccdd047956e16",
+      "source_file": "simple-rag\\README.md",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "### Repository to learn RAG"
+    }
+  ],
+  "9": [
+    {
+      "chunk_id": "bc06d704b5de7282",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "SCHOOL OF COMPUTER ENGINEERING\nCOMPUTER AND COMMUNICATION ENGINEERING\nEXPLORING APPLICATIONS OF AI THROUGH ENTERPRISE ARCHITECTURE\nBiweekly Report\nSubmitted by\nANSH ASHISH GOYAL\n220953084\nUnder the gu"
+    },
+    {
+      "chunk_id": "99fe8917556019e5",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "PROJECT DETAILS\nStudent Details\nStudent Name:\tAnsh Ashish Goyal\nReg No.:\t\t220953084\t\t\t\tSection / Roll No.:\tCCE C - 14\nEmail Address:\tAnsh.GOYAL.Intern@3ds.com\tPh No.:\t+91.98909.85598\nProject Details\nP"
+    },
+    {
+      "chunk_id": "df7d57ba5ac9e101",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "SYNOPSIS\nEXPLORING APPLICATIONS OF AI\nTHROUGH ENTERPRISE ARCHITECTURE\nSubmitted by\nANSH ASHISH GOYAL\n220953084\nUnder the guidance of\nMR. AMIT NARALE\nSenior Software Architect Manager\nDassault Systèmes"
+    },
+    {
+      "chunk_id": "2ebbd48bf8ce884f",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "INTERNSHIP LETTER\n(Below is the Internship Offer Letter)\nii"
+    },
+    {
+      "chunk_id": "a9fc6593e6d8735b",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "PROJECT DETAILS\nStudent Details\nStudent Name: Ansh Ashish Goyal\nReg No.: 220953084 Section / Roll No.: CCE C - 14\nEmail Address: Ansh.GOYAL.Intern@3ds.com Ph No.: +91.98909.85598\nProject Details\nProje"
+    },
+    {
+      "chunk_id": "6326b9a20b95a887",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_SynopsisDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "SYNOPSIS\nEXPLORING APPLICATIONS OF AI THROUGH ENTERPRISE ARCHITECTURE\nSubmitted by\nANSH ASHISH GOYAL\n220953084\nUnder the guidance of\nMR. AMIT NARALE\nSenior Software Architect Manager\nDassault Systèmes"
+    },
+    {
+      "chunk_id": "c83a05a39448f66a",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_SynopsisDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "INTERNSHIP LETTER\n(Below is the Internship Offer Letter)"
+    },
+    {
+      "chunk_id": "0bc3c95b784febd8",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_SynopsisDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "PROJECT DETAILS\nStudent Details\nStudent Name:\tAnsh Ashish Goyal\nReg No.:\t\t220953084\t\t\t\tSection / Roll No.:\tCCE C - 14\nEmail Address:\tAnsh.GOYAL.Intern@3ds.com\tPh No.:\t+91.98909.85598\nProject Details\nP"
+    },
+    {
+      "chunk_id": "0403cfd63144a960",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Exploring Applications of AI Through Enterprise\nArchitecture\nProject Progress Presentation\nAnsh Goyal\n220953084\nComputer and Communication Engineering\nUnder the guidance of\nDr. Rani Oomman Panicker Mr"
+    },
+    {
+      "chunk_id": "da7fe9eecd1c99b8",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "EXPLORING APPLICATIONS OF AI THROUGH\nENTERPRISE ARCHITECTURE\nProject progress report submitted\nto\nMANIPAL ACADEMY OF HIGHER EDUCATION\nFor Partial Fulfillment of the Requirement for the\nAward of the De"
+    },
+    {
+      "chunk_id": "fcc2d89a33cf32de",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Title of your Project\nProject Progress Presentation\nName\nRegistration Number\nBranch\nUnder the guidance of\nInternal Guide External Guide\nDetails Details\nMarch4,2024\nDepartmentofInformationandCommunicat"
+    },
+    {
+      "chunk_id": "d1e5f6d004ee8f7a",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "\\documentclass[a4paper,12pt]{article}\n\\setlength\\textwidth{7in}\n\\usepackage{amssymb,amsmath}\n\\usepackage{verbatim,graphicx}\n\\usepackage{fullpage}\n\\begin{document}\n\n\\begin{titlepage}\n\\vspace*{2cm}\n\t\\be"
+    },
+    {
+      "chunk_id": "a36b6435e9f54a3e",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Title of Your Project\nProject progress report submitted\nto\nMANIPAL ACADEMY OF HIGHER EDUCATION\nFor Partial Fulfillment of the Requirement for the\nAward of the Degree\nof\nBachelor of Technology\nin\nInfor"
+    },
+    {
+      "chunk_id": "61b08420ddbc73df",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_PreReq\\STUDENT PROJECT DIARY-UG_ 2026.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "SCHOOL OF COMPUTER ENGINEERING\nBranch Name\nTITLE\nBiweekly Report\nSubmitted by\nNAME OF THE STUDENT\nREG NO\nUnder the guidance of\nGUIDE NAME\nSCHOOL OF COMPUTER ENGINEERING\nABSTRACT\nOBJECTIVES\nProject Det"
+    },
+    {
+      "chunk_id": "fd41fef22e12061b",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project work guidelines_2025_26 batchFinal.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Practice school / Project work – guidelines (2025_26 Batch)\n(CSE 4299 / ICT4292 / DSE4292 )\nAs a part of the 8th Semester practice school/project work, students must carry out project work\nfor a minim"
+    },
+    {
+      "chunk_id": "783219cbfb90169d",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project work guidelines_2025_26 batchFinal.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Web link to access the papers:\nOpenAthens (SSO - Single Sign-on) - Remote Access to e-Resources\nhttps://go.openathens.net/redirector/manipal.edu?url=https%3A%2F%2Flib\nportal.manipal.edu%2FMIT%2FMIT.as"
+    },
+    {
+      "chunk_id": "053d9a5b7f6ca91e",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project work guidelines_2025_26 batchFinal.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "• The internal project students are expected to maintain an exclusive project observation\nnotebook, update their work daily, and take signatures from project lab faculty. In\naddition, they are expecte"
+    },
+    {
+      "chunk_id": "6018874e927bdfae",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project work guidelines_2025_26 batchFinal.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "• Students who are allowed to do their projects abroad and in industry shall give their\nmidterm presentation through MS Teams. However, they must give their final\npresentation in person only. All othe"
+    },
+    {
+      "chunk_id": "2c14aa392aca6a94",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project work guidelines_2025_26 batchFinal.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Practice School / Project Work coordinator(s)\nDr. R Vijaya Arjunan (CSE)\nDr. Diana Olivia (IT) Dean\nDr. Raviraj Holla (CCE) School of Computer Engineering\nDr. Tanuja (AIML) MIT\nDr. Abhilash Pai (DS)"
+    },
+    {
+      "chunk_id": "b912eece942914a9",
+      "source_file": "Email - ANSH GOYAL - 122104649 - MITMPL - Outlook.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "Outlook\nProject work Guidelines for 8th Semester students\nFrom Diana Olivia [MAHE-MIT] <diana.olivia@manipal.edu>\nDate Tue 16/12/2025 16:20\nTo CCEREG_2022 <ccereg_2022@manipal.edu>; IT_Reg 22 <it_reg2"
+    },
+    {
+      "chunk_id": "96b60a3978e9dbce",
+      "source_file": "Email - ANSH GOYAL - 122104649 - MITMPL - Outlook.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "8. Industry students undertaking non-technical internships are required to mandatorily\ncarry out a research project under the supervision of a faculty member from the SCE.\nThis project may be conducte"
+    },
+    {
+      "chunk_id": "2105f32cf3b8095d",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "CODE OF CONDUCT AND INTERNSHIP POLICIES\nFollowing are a few “Code of Conduct” guidelines and organizational policies as per my understanding of the organisation:\n1. Confidentiality\nMaintain strict con"
+    },
+    {
+      "chunk_id": "d7d3391ee2114358",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 0.6,
+      "text_preview": "INTERNSHIP PROGRAM TRACKER"
+    },
+    {
+      "chunk_id": "bfb779a55684ef96",
+      "source_file": "simple-rag\\LICENSE",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 0.6,
+      "text_preview": "MIT License\n\nCopyright (c) 2026 Ansh Goyal\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\ni"
+    }
+  ],
+  "0": [
+    {
+      "chunk_id": "cc5c804bc3cd3b75",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "INDEX"
+    },
+    {
+      "chunk_id": "2ea2922e710d63d8",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "INDEX\nINDEX ........................................................................................................................................ i\nINTERNSHIP LETTER ..............................."
+    },
+    {
+      "chunk_id": "2c4a50e0d8124f16",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_SynopsisDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "INDEX"
+    },
+    {
+      "chunk_id": "fda942678452a75d",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Presentation Outline\n1 Introduction\n2 Literature Survey / Background Theory\n3 Problem Definition\n4 Objectives\n5 Methodology\n6 Workdone so far\n7 Remaining work\n8 Scope\n9 Conclusion\n10 References\nSchool"
+    },
+    {
+      "chunk_id": "085718a5a553530b",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "Thank You\nSchoolofComputerEngineering 13/13"
+    },
+    {
+      "chunk_id": "5ccbfce4f69764da",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Presentation Outline\n1 Introduction\n2 Literature Survey / Background Theory\n3 Problem Definition\n4 Objectives\n5 Methodology\n6 Workdone so far\n7 Remaining work\n8 Scope\n9 Conclusion\n10 References\nDepart"
+    },
+    {
+      "chunk_id": "42a8e9dc1fd393cc",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "Introduction\nDepartmentofInformationandCommunicationTechnology 3/4"
+    },
+    {
+      "chunk_id": "789f1a41e97146b9",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "Thank You\nDepartmentofInformationandCommunicationTechnology 4/4"
+    },
+    {
+      "chunk_id": "92b986169cc7922a",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Introduction}\nGive general introduction about your research work."
+    },
+    {
+      "chunk_id": "6af5c2a659f379f0",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Literature Survey}\nGive related work here \\cite{sh07}\\cite{odo95}\\cite{gs97}."
+    },
+    {
+      "chunk_id": "494a364248e2d66a",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Problem Definition}\t\nDefine your research problem."
+    },
+    {
+      "chunk_id": "5715bc1ad98feabf",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Objective}\nList main objectives of your research work"
+    },
+    {
+      "chunk_id": "2292ebce4d078165",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Methodology}\nGive diagram etc indicating various module of your work."
+    },
+    {
+      "chunk_id": "69a8c404a5214aa9",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\Project Progress Report Format.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Scope}\nWho will benefit from your research work?\n\n%References\n\\bibliographystyle{IEEEtran}\n\\bibliography{myref}\n\\end{document}"
+    },
+    {
+      "chunk_id": "4ddc2dc170a6e9ad",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "1 Introduction\nGive general introduction about your research work.\n2 Literature Survey\nGive related work here [1][2][3].\n3 Problem Definition\nDefine your research problem.\n4 Objective\nList main object"
+    }
+  ],
+  "3": [
+    {
+      "chunk_id": "bd8c0e3d3ac58467",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ABSTRACT\nIn modern manufacturing environments, factories rely heavily on automated machinery and complex systems to maintain high productivity and operational efficiency. However, machine failures suc"
+    },
+    {
+      "chunk_id": "33714fb55621cfe5",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_StudentDiaryDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "OBJECTIVES\nTo design an AI-based assistant for intelligent incident resolution, capable of understanding, analysing, and responding to machine-related issues in a manufacturing environment with minima"
+    },
+    {
+      "chunk_id": "5aabe6d85c699e4f",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "1. INTRODUCTION\n1.1 General Introduction to the topic\nIn modern manufacturing environments, factories rely heavily on automated machinery and\ncomplex systems to maintain high productivity and operatio"
+    },
+    {
+      "chunk_id": "0f90070bb4e0fd61",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "maintenance logs, etc.) in dashboards and AI models. For example, Dassault Aviation (the\naircraft manufacturer) uses 3DEXPERIENCE NETVIBES to maximize fleet availability by\nfeeding operational data th"
+    },
+    {
+      "chunk_id": "fb9fe3709766602c",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "- MES System\n- CMMS System\n- Email Service\n- Teams / Slack API\n2. NEED FOR THE PROJECT\nManufacturing industries face frequent machine-related incidents that require immediate\nattention to prevent down"
+    },
+    {
+      "chunk_id": "e46954d210dc7267",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "v. To automate the creation and updating of maintenance tickets in the CMMS\nsystem, ensuring timely escalation of incidents that require expert intervention.\nvi. To notify relevant stakeholders throug"
+    },
+    {
+      "chunk_id": "80d9a2c3894d3b57",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_Synopsis.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "REFERENCES\n[1] https://www.linkedin.com/learning/agentic-ai-fundamentals-architectures-\nframeworks-and-applications/agentic-ai-the-future-of-smart-ai-is-here\n[2] https://www.akira.ai/ai-agents/inciden"
+    },
+    {
+      "chunk_id": "08d6838850050f5a",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\220953084_Ansh_SynopsisDraft.docx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "REFERENCES\nhttps://www.linkedin.com/learning/agentic-ai-fundamentals-architectures-frameworks-and-applications/agentic-ai-the-future-of-smart-ai-is-here\nhttps://www.akira.ai/ai-agents/incident-respons"
+    },
+    {
+      "chunk_id": "46c2394ca7e8f0ce",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Introduction\nManufacturing assembly lines generate large volumes of\ntorque fastening events per shift\nEach event must fall within SOP-specified torque and angle\ntolerances for quality compliance\nManua"
+    },
+    {
+      "chunk_id": "3bad911e22b875cc",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Literature Survey / Background Theory\nMulti-Agent Systems (Wooldridge & Jennings, 1995) —\nspecialised agents for modular, scalable task handling\nRetrieval-Augmented Generation (Lewis et al., NeurIPS\n2"
+    },
+    {
+      "chunk_id": "776401c7a59628be",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Problem Definition\nTorque incidents flagged per shift require: SOP lookup,\nseverity assessment, historical precedent retrieval, and\nresolution decision\nCurrent manual process is slow, inconsistent, an"
+    },
+    {
+      "chunk_id": "a13145748b77bb8a",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Objectives\n1 Validate torque events against joint-specific SOP tolerances\nautomatically\n2 Classify incident severity (LOW / MEDIUM / HIGH /\nCRITICAL) using an LLM\n3 Implement dual RAG retrieval over S"
+    },
+    {
+      "chunk_id": "b47ec1b54b5ca2f8",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Methodology\n1 Validator — checks actual torque & angle vs. SOP tolerance\nband\n2 Severity Classifier — LLM assigns LOW / MEDIUM / HIGH\n/ CRITICAL\n3 Auto-Close Router — routes LOW + non-critical events\n"
+    },
+    {
+      "chunk_id": "c02921e3ab344411",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "Remaining work\nRoot cause analytics dashboard (Plotly — joint failure rates,\nMTTR trends)\nNetvibes platform integration exploration\nData Factory Studio ingestion and ML Workbench\nexperiments\nPredictiv"
+    },
+    {
+      "chunk_id": "dcd7377a99da7713",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Scope\nPrimary users: Manufacturing quality engineers and\nproduction supervisors in torque-critical assembly lines\nReduces engineer workload by auto-closing routine\nlow-severity incidents\nEnsures consi"
+    },
+    {
+      "chunk_id": "8c41d43df4024a81",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Conclusion\nTorque Assistant demonstrates a working end-to-end agentic\nAI pipeline for manufacturing incident resolution\nMulti-agent LangGraph workflow successfully automates\nvalidation, classification"
+    },
+    {
+      "chunk_id": "4d0506eef42ebf16",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Presentation.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 0.6,
+      "text_preview": "References\n1 M.WooldridgeandN.R.Jennings,“IntelligentAgents: TheoryandPractice,”\nTheKnowledgeEngineeringReview,vol. 10,no. 2,pp. 115–152,1995.\n2 P.Lewisetal.,“Retrieval-AugmentedGenerationforKnowledge"
+    },
+    {
+      "chunk_id": "f9326980383dee35",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "1 Introduction\nModern manufacturing and assembly environments depend on precise, repeatable fas-\ntening operations. In automotive and aerospace production lines, every bolted joint\nmust be tightened t"
+    },
+    {
+      "chunk_id": "cd20de901dc329a6",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "this to stateful, graph-based multi-agent pipelines, enabling workflows where specialised\nagents hand off context through a shared typed state directly applicable to sequential\nincident triage.\nFor sc"
+    },
+    {
+      "chunk_id": "96d95a8744818f0f",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "3. Toautomaticallyclassifytorqueincidentsbyseverity(LOW,MEDIUM,HIGH,CRITICAL)\nusing an LLM, enabling appropriate prioritisation and efficient routing of incidents.\n4. Toimplementdual-indexRetrieval-Au"
+    },
+    {
+      "chunk_id": "ee07074ce9647122",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Workflow Nodes\n1. Validator: Computes whether the actual torque and angle fall within the SOP-\ndefined tolerance band. Sets the validation field (PASS/FAIL) and populates a\nstructured deviation summar"
+    },
+    {
+      "chunk_id": "8ef4fff29200c8f7",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "• Core data schema: IncidentState (Pydantic) with full type annotations for all\nevent fields, computed validation fields, retrieved context, and agent result con-\ntainer.\n• Dual FAISS vector stores: B"
+    },
+    {
+      "chunk_id": "1e91d01e815288c7",
+      "source_file": "8th-Sem-Project-Documents\\Completed\\Midterm_Progress_Report.pdf",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "8 Scope\nThe primary beneficiaries of this project are manufacturing quality engineers and\nproduction supervisorsinassemblyenvironmentswheretorquefasteningcomplianceis\nsafety-orquality-critical, partic"
+    }
+  ],
+  "8": [
+    {
+      "chunk_id": "c9374715f4f4dfb2",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Presentation_Template\\mid term Project presentaion Template.tex",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "\\documentclass{beamer}\n\\setbeamertemplate{navigation symbols}{}\n\n\\usetheme{shadow}\n%\\usetheme{Warsaw}\n\\usepackage{ragged2e}\n\n\\begin{document}\n\\logo{\n  %\\includegraphics[width=1cm,height=1cm,keepaspect"
+    },
+    {
+      "chunk_id": "b72efa207922bd34",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "%%\n%% IEEEtran.bst\n%% BibTeX Bibliography Style file for IEEE Journals and Conferences (unsorted)\n%% Version 1.12 (2007/01/11)\n%% \n%% Copyright (c) 2003-2007 Michael Shell\n%% \n%% Original starting cod"
+    },
+    {
+      "chunk_id": "a3fb17769c94f3f1",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%% DEFAULTS FOR THE CONTROLS OF THE BST STYLE %%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n% These are the defaults for the user adjustable con"
+    },
+    {
+      "chunk_id": "e8a024600f573e2e",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "he default LaTeX font command for the names.\nFUNCTION {default.name.latex.cmd}{ \"\" }\n\n% The default URL prefix.\nFUNCTION {default.name.url.prefix}{ \"[Online]. Available:\" }\n\n% Other controls that cann"
+    },
+    {
+      "chunk_id": "2e3ceefd11421aee",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%% PREDEFINED STRING MACROS %%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\nMACRO {jan} {\"Jan.\"}\nMACRO {feb} {\"Feb.\"}\nMACRO {mar} {\"Mar.\"}\nMACRO {apr} {\"Apr.\"}\nMACRO {may} {\"May\"}\nMACR"
+    },
+    {
+      "chunk_id": "aff5b5a70dcb5d17",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "% This IEEEtran.bst features a very powerful and flexible mechanism for\n% controlling the capitalization, punctuation, spacing, quotation, and\n% newlines of the formatted entry fields. (Note: IEEEtran"
+    },
+    {
+      "chunk_id": "52d001aa78bb67b2",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "FUNCTION {initialize.status.constants}\n{ #0 'punct.no :=\n  #1 'punct.comma :=\n  #2 'punct.period :=\n  #0 'space.no := \n  #1 'space.normal :=\n  #2 'space.large :=\n  #0 'quote.no :=\n  #1 'quote.close :="
+    },
+    {
+      "chunk_id": "17448d3a5affa4f9",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "of \" * cite$ * warning$\n    #0\n    }\n  if$\n}\n\n% converts a string on the stack to an integer\nFUNCTION {string.to.integer}\n{ duplicate$ text.length$ 'namesleft :=\n  #1 'nameptr :=\n  #0 'numnames :=\n   "
+    },
+    {
+      "chunk_id": "8d334fe45c67b35e",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "r or\n        { #1 'multiresult := }\n        { t #2 global.max$ substring$ 't := }\n      if$\n    }\n  while$\n  multiresult\n}\n\nFUNCTION {capitalize}{ \"u\" change.case$ \"t\" change.case$ }\n\nFUNCTION {emphas"
+    },
+    {
+      "chunk_id": "2f7e6764712d8549",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "issing$\n    { swap$ \"missing \" swap$ * \" in \" * cite$ * warning$ pop$ \"\" }\n    { duplicate$ empty$\n        { swap$ \"empty \" swap$ * \" in \" * cite$ * warning$ }\n        { swap$ pop$ }\n      if$\n    }\n "
+    },
+    {
+      "chunk_id": "296604bb35bfe2f4",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "vious entry and replaces the repeated names with dashes (if the\n% \"is.dash.repeated.names\" user control is nonzero).\nFUNCTION {name.or.dash}\n{ 's :=\n   oldname empty$\n     { s 'oldname := s }\n     { s"
+    },
+    {
+      "chunk_id": "372b3f9eb3f2de2e",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ote$ * edition * quote$ *\n              \" may be too high (or improper) for conversion\" * \" in \" * cite$ * warning$\n            }\n          if$\n        }\n      if$\n    }\n  if$\n}\n\n%%%%%%%%%%%%%%%%%%%%%"
+    },
+    {
+      "chunk_id": "5a8f0d911e1c6bab",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "wline$} if$}\n     { skip$ }\n   if$\n}\n\nFUNCTION {if.url.std.interword.spacing}\n{ is.use.alt.interword.spacing \n     {url empty$ 'skip$ {\"\\BIBentrySTDinterwordspacing\" write$ newline$} if$}\n     { skip$"
+    },
+    {
+      "chunk_id": "86445a479fdde5c7",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "if$\n          month empty$\n            { year empty$\n                { skip$ }\n                { year \"year\" bibinfo.check * }\n              if$\n            }\n            { month \"month\" bibinfo.check"
+    },
+    {
+      "chunk_id": "39d375aa7f5ccdeb",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ear\" bibinfo.check duplicate$ empty$\n    { swap$ 'skip$\n        { this.to.prev.status\n          this.status.std\n          cap.status.std\n         \"there's a month but no year in \" cite$ * warning$ }\n "
+    },
+    {
+      "chunk_id": "f75587087e29a733",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "in.booktitle.edition}\n{ booktitle \"booktitle\" bibinfo.check duplicate$ empty$ 'skip$\n    { this.to.prev.status\n      this.status.std\n      select.language\n      emphasize\n      edition empty$ 'skip$\n "
+    },
+    {
+      "chunk_id": "92dce76ab72327f3",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ss.publisher.date.nowarn}\n{ publisher \"publisher\" bibinfo.check format.address.org.or.pub.date }\n\nFUNCTION {format.address.organization.date}\n{ organization \"organization\" bibinfo.check format.address"
+    },
+    {
+      "chunk_id": "f6e3a1ecf0d9b26a",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "} \n   if$\n}\n\nFUNCTION {format.pages}\n{ pages duplicate$ empty$ 'skip$\n    { this.to.prev.status\n      this.status.std\n      duplicate$ is.multiple.pages\n        {\n          bbl.pages swap$\n          n"
+    },
+    {
+      "chunk_id": "16681b7496e2c7dd",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ange.case$ \"united states\" =\n        { pop$ bbl.patentUS }\n        { skip$ }\n      if$\n      \" \" *\n    }\n  if$\n  type empty$\n    { bbl.patent \"type\" bibinfo.check }\n    { type \"type\" bibinfo.check }\n "
+    },
+    {
+      "chunk_id": "993a641a47a7f504",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ntry\n  if.url.alt.interword.spacing\n  format.authors \"author\" output.warn\n  name.or.dash\n  format.article.title \"title\" output.warn\n  format.journal \"journal\" bibinfo.check \"journal\" output.warn\n  for"
+    },
+    {
+      "chunk_id": "580938e0fc8803bf",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "thor\" output.warn\n  name.or.dash\n  format.article.title \"title\" output.warn\n  format.in.booktitle.edition \"booktitle\" output.warn\n  format.series output\n  format.editors output\n  format.address.publis"
+    },
+    {
+      "chunk_id": "639267c74e6ef41b",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ical}\n{ std.status.using.comma\n  start.entry\n  if.url.alt.interword.spacing\n  format.editors output\n  name.or.dash\n  format.book.title \"title\" output.warn\n  format.series output\n  format.volume output"
+    },
+    {
+      "chunk_id": "8dbbfe7d58930d48",
+      "source_file": "8th-Sem-Project-Documents\\Document_Template_Midterm\\Project_Progress_Report_Format\\IEEEtran.bst",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": ".warn\n  format.note output\n  format.url output\n  fin.entry\n  if.url.std.interword.spacing\n}\n\nFUNCTION {unpublished}\n{ std.status.using.comma\n  start.entry\n  if.url.alt.interword.spacing\n  format.autho"
+    }
+  ],
+  "1": [
+    {
+      "chunk_id": "f08a9dba508e84c7",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Sheet: Final     Mapping\nEnrollment No."
+    },
+    {
+      "chunk_id": "feb2fd8e01f86ab6",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "| Student Name | Learner Email ID | Internal Guide  |  |  | \nEnrollment No.: 210905074, Student Name: ANURAG BHAT, Learner Email ID: anurag.bhat@learner.manipal.edu, Internal Guide : Dr Manohara Pai M"
+    },
+    {
+      "chunk_id": "56486cc5d541307e",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Mohandas Shenoy P\nEnrollment No.: 220905114, Student Name: SHUBHANGI SHREE, Learner Email ID: shubhangi.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220905314, Student Name: ASHUTOSH KUMAR VERMA, Le"
+    },
+    {
+      "chunk_id": "8a5f9edd0c2749b6",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Rohini R Rao\nEnrollment No.: 220905344, Student Name: POBARI KASHYAP VISHAL, Learner Email ID: kashyap1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220905082, Student Name: NARAYANI SHARMA, Learner"
+    },
+    {
+      "chunk_id": "35abd7cc33f10f34",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Divya Rao\nEnrollment No.: 220905249, Student Name: ADICHERIKANDI SIDHARTH, Learner Email ID: adicherikandi.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220905541, Student Name: YASH VANSHRAJ, Learne"
+    },
+    {
+      "chunk_id": "80cb9732d69c3d1c",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Rajesh Mahadeva\nEnrollment No.: 220962368, Student Name: YASH SRIVASTAVA, Learner Email ID: yash5.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220962029, Student Name: JOWAN GEORGE, Learner Email ID"
+    },
+    {
+      "chunk_id": "796a5e3195a7b9e9",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Gouranga Mandal\nEnrollment No.: 220962400, Student Name: DASI YASHASVI, Learner Email ID: yashasvi.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220962310, Student Name: REEVA NANDA, Learner Email ID"
+    },
+    {
+      "chunk_id": "b66c8fcac374393d",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "pl2022@learner.manipal.edu\nEnrollment No.: 220962414, Student Name: LAVEN SRIVASTAVA, Learner Email ID: laven.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220962276, Student Name: PRIYANKA PATHAK, L"
+    },
+    {
+      "chunk_id": "44f571d0de16d267",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Shanmukharaja  M\nEnrollment No.: 220962250, Student Name: PRANAV KUMAR GUPTA, Learner Email ID: pranav4.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220962258, Student Name: PALLAVI KAILAS, Learner "
+    },
+    {
+      "chunk_id": "928ac7b04dfb20e7",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Sucharitha Shetty\nEnrollment No.: 220962046, Student Name: AMULYA PARASHAR, Learner Email ID: amulya.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953044, Student Name: ANIRUDH AGRAWAL, Learner Em"
+    },
+    {
+      "chunk_id": "36853859d6122438",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Tojo Thomas\nEnrollment No.: 210911168, Student Name: PIYUSH PANKAJ PANIGRAHI, Learner Email ID: piyush.panigrahi1@learner.manipal.edu\nEnrollment No.: 210911208, Student Name: PRATHAM JAIN, Learner Ema"
+    },
+    {
+      "chunk_id": "d06f3c26e6d5cea3",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Archana H\nEnrollment No.: 220911028, Student Name: DIKSHA BHARTIA, Learner Email ID: diksha1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911029, Student Name: SHRI HARI N G, Learner Email ID: sh"
+    },
+    {
+      "chunk_id": "950d139c0643bb06",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ner.manipal.edu\nEnrollment No.: 220953644, Student Name: UMA AJIT JOSHI, Learner Email ID: uma.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220905514, Student Name: LAVITRA SRIVASTAVA, Learner Email"
+    },
+    {
+      "chunk_id": "aefbfe4f161e235c",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "tmpl2022@learner.manipal.edu\nEnrollment No.: 220911168, Student Name: SHIKHAR GUPTA, Learner Email ID: shikhar.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911172, Student Name: MARTHALA SAI MAHI"
+    },
+    {
+      "chunk_id": "9edd68e8bba1c3d5",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "aditya12.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911302, Student Name: LAKSHAY CHAUHAN, Learner Email ID: lakshay.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911304, Student Name: ISHA"
+    },
+    {
+      "chunk_id": "51406243adaffaec",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "022@learner.manipal.edu\nEnrollment No.: 220911356, Student Name: BORANA JAY CHETAN, Learner Email ID: jay.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911358, Student Name: PRATHAM SUDHEENDRA MOO"
+    },
+    {
+      "chunk_id": "770d141d5b6dc048",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "pl2022@learner.manipal.edu\nEnrollment No.: 220911440, Student Name: VANSHAJ RAI, Learner Email ID: vanshaj.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220905008, Student Name: U S ADVAITH SHARMA, L"
+    },
+    {
+      "chunk_id": "4f169239d6d54971",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911524, Student Name: KIRAN KISHORE, Learner Email ID: kiran.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911526, Student Name: ARCHIT AGARWAL,"
+    },
+    {
+      "chunk_id": "3676fee06f5237e6",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "l2022@learner.manipal.edu\nEnrollment No.: 220911536, Student Name: PRASHAST SAXENA, Learner Email ID: prashast.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911542, Student Name: PASUMARTY MEHER J"
+    },
+    {
+      "chunk_id": "6e16be7f91ea6770",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "learner.manipal.edu\nEnrollment No.: 220911602, Student Name: CHHAUDA SIDDHARTHA SURINDER, Learner Email ID: siddhartha1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220962053, Student Name: SHWETA T"
+    },
+    {
+      "chunk_id": "dd37f9d5ae491707",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Savitha G\nEnrollment No.: 220911646, Student Name: ARYAMAN SHARMA, Learner Email ID: aryaman1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220911648, Student Name: SAMINENI AADHYA, Learner Email ID:"
+    },
+    {
+      "chunk_id": "1b318827f3ea4b79",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Ujjwal\nEnrollment No.: 220953028, Student Name: SHASHWAT HARSH, Learner Email ID: shashwat5.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953029, Student Name: ADITYA P SAJJAN, Learner Email ID: a"
+    },
+    {
+      "chunk_id": "b4ae1b483e33583e",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "itmpl2022@learner.manipal.edu\nEnrollment No.: 220953128, Student Name: ASHWIN MITTAL, Learner Email ID: ashwin2.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953130, Student Name: M ASHLESH MALLYA"
+    },
+    {
+      "chunk_id": "9c82f8aba7c7a5c8",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953202, Student Name: RUTHVIK AVADHANAM, Learner Email ID: ruthvik.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220905145, Student Name: RUPPIKHA SR"
+    },
+    {
+      "chunk_id": "00bc772480c2fa7b",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": ".manipal.edu\nEnrollment No.: 220953344, Student Name: BHOR SHRAVANI GORAKSH, Learner Email ID: shravani1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953348, Student Name: VAIBHAV BHARDWAJ, Learn"
+    },
+    {
+      "chunk_id": "e6d3e2fb663d85d8",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": ": devarakonda.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953464, Student Name: ALOK KUMAR, Learner Email ID: alok1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953466, Student Name: ROHIT "
+    },
+    {
+      "chunk_id": "54d24f15c19f2149",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "er Email ID: jahnavi1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953522, Student Name: HARSHITA, Learner Email ID: harshita1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953524, Student Na"
+    },
+    {
+      "chunk_id": "99c5687dc7929064",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "rajwal3.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953578, Student Name: JAITHRA AVULA, Learner Email ID: jaithra.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953580, Student Name: LIAN LO"
+    },
+    {
+      "chunk_id": "ea452fac8ea179bd",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "itmpl2022@learner.manipal.edu\nEnrollment No.: 220953622, Student Name: ANIKET HAZRA, Learner Email ID: aniket.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220953624, Student Name: BONDA L D V P VARU"
+    },
+    {
+      "chunk_id": "5c736d7a43b292d0",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ganapathi.mitmpl2023@learner.manipal.edu\nEnrollment No.: 220953668, Student Name: VIGNESH, Learner Email ID: vignesh.mitmpl2023@learner.manipal.edu\nEnrollment No.: 220953670, Student Name: DEEPAK H SU"
+    },
+    {
+      "chunk_id": "2bd56e2508e0dd6a",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "ID: mohammed4.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220968422, Student Name: PUSHKAL OJHA, Learner Email ID: pushkal.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220968426, Student Name: PA"
+    },
+    {
+      "chunk_id": "a4137233ad039b73",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "r.manipal.edu\nEnrollment No.: 220968062, Student Name: AKHIL AJAI KUMAR, Learner Email ID: akhil1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220968288, Student Name: SHREERAKSHA ARUNACHALA CHANDAV"
+    },
+    {
+      "chunk_id": "da9ba9e44e48e597",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "du\nEnrollment No.: 220968166, Student Name: AMEY MANDAR JOSHI, Learner Email ID: amey.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220968024, Student Name: SIMHADRI NARENDRANATH CHOWDARY, Learner Em"
+    },
+    {
+      "chunk_id": "2e08c29b722f02e2",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "2023@learner.manipal.edu\nEnrollment No.: 220968414, Student Name: VIJITH J POOJARI, Learner Email ID: vijith.mitmpl2022@learner.manipal.edu\nEnrollment No.: 210968029, Student Name: RISHAAN RATHORE, Le"
+    },
+    {
+      "chunk_id": "636e99a0c9120e2e",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "l ID: harsh7.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220968384, Student Name: AADITHYA SANTHOSH, Learner Email ID: aadithya.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220968332, Student Nam"
+    },
+    {
+      "chunk_id": "ae8298c0e552d771",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE Project Internal Guide Allotment Jan 2026 .xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Aarabhi Putty\nEnrollment No.: 220968096, Student Name: M V AKSHAY REDDY, Learner Email ID: akshay1.mitmpl2022@learner.manipal.edu\nEnrollment No.: 220968154, Student Name: SHRAVANI, Learner Email ID: s"
+    },
+    {
+      "chunk_id": "462976433008ab2e",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE_Internal_Guide_Email_IDs.xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Sheet: FACULTY LIST \nSl. No | Faculty Name | Email ID | Promotion date | Remark |  |  | \nSl. No: 1, Faculty Name: Dr Manohara Pai M M (PRE), Email ID: mmm.pai@manipal.edu, Promotion date: 2023-06-10 0"
+    },
+    {
+      "chunk_id": "03f63f7e8167e670",
+      "source_file": "8th-Sem-Project-Documents\\Guidelines\\SCE_Internal_Guide_Email_IDs.xlsx",
+      "file_type": "document",
+      "project_root": "8th-Sem-Project-Documents",
+      "confidence": 1.0,
+      "text_preview": "Sheet: NEW LIST \nSCHOOL OF COMPUTER ENGINEERING |  |  | \nSCHOOL OF COMPUTER ENGINEERING: 1, MAHE0002543, Dr Manohara Pai M M, Senior Professor\nSCHOOL OF COMPUTER ENGINEERING: 2, MAHE0002704, Dr Radhik"
+    }
+  ],
+  "7": [
+    {
+      "chunk_id": "ca1113d22434fd8a",
+      "source_file": "CertificateOfCompletion_Advanced LLMs with Retrieval Augmented Generation RAG Practical Projects for AI Applications.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "AAddvvaanncceedd LLLLMMss wwiitthh RReettrriieevvaall\nAAuuggmmeenntteedd GGeenneerraattiioonn ((RRAAGG))::\nPPrraaccttiiccaall PPrroojjeeccttss ffoorr AAII AApppplliiccaattiioonnss\nCCoouurrssee ccoommp"
+    },
+    {
+      "chunk_id": "301a1fe26fd85848",
+      "source_file": "CertificateOfCompletion_Generative AI Introduction to Large Language Models.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "GGeenneerraattiivvee AAII:: IInnttrroodduuccttiioonn ttoo LLaarrggee\nLLaanngguuaaggee MMooddeellss\nCCoouurrssee ccoommpplleetteedd bbyy AAnnsshh GGooyyaall\nJJaann 2222,, 22002266 aatt 0077::0055AAMM U"
+    },
+    {
+      "chunk_id": "46a9558bddcd2957",
+      "source_file": "Certificates\\CertificateOfCompletion_HandsOn AI Introduction to RetrievalAugmented Generation RAG.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "HHaannddss--OOnn AAII:: IInnttrroodduuccttiioonn ttoo\nRReettrriieevvaall--AAuuggmmeenntteedd GGeenneerraattiioonn\n((RRAAGG))\nCCoouurrssee ccoommpplleetteedd bbyy AAnnsshh GGooyyaall\nJJaann 2233,, 2200"
+    },
+    {
+      "chunk_id": "efc5740ccfda03ce",
+      "source_file": "Certificates\\CertificateOfCompletion_Introduction to Large Language Models-1.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "IInnttrroodduuccttiioonn ttoo LLaarrggee LLaanngguuaaggee MMooddeellss\nCCoouurrssee ccoommpplleetteedd bbyy AAnnsshh GGooyyaall\nJJaann 2222,, 22002266 aatt 0044::3366AAMM UUTTCC\nTToopp sskkiillllss cc"
+    },
+    {
+      "chunk_id": "7db064274ab24534",
+      "source_file": "Certificates\\CertificateOfCompletion_Introduction to Large Language Models-3.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "IInnttrroodduuccttiioonn ttoo LLaarrggee LLaanngguuaaggee MMooddeellss\nCCoouurrssee ccoommpplleetteedd bbyy AAnnsshh GGooyyaall\nJJaann 2222,, 22002266 aatt 0044::5566AAMM UUTTCC\nTToopp sskkiillllss cc"
+    },
+    {
+      "chunk_id": "a994d82c2a790b65",
+      "source_file": "Certificates\\CertificateOfCompletion_Introduction to Large Language Models-3.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "ooooffff aaaaccccccccoooouuuunnnnttttaaaannnnccccyyyy hhhhaaaavvvveeee RRRReeeeggggiiiissssttttrrrryyyy IIIIDDDD:::: ####111144440000999944440000\nffffiiiinnnnaaaallll aaaauuuutttthhhhoooorrrriiiitttty"
+    },
+    {
+      "chunk_id": "89f32a5a9b3193e8",
+      "source_file": "Certificates\\CertificateOfCompletion_Introduction to Large Language Models.pdf",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "IInnttrroodduuccttiioonn ttoo LLaarrggee LLaanngguuaaggee\nMMooddeellss\nCCoouurrssee ccoommpplleetteedd bbyy AAnnsshh GGooyyaall\nJJaann 2222,, 22002266 aatt 0044::3366AAMM UUTTCC •• 11 hhoouurr 1177 mm"
+    },
+    {
+      "chunk_id": "0e84114d326dcae6",
+      "source_file": "expenses-pwa\\backend\\.env",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "APP_PASSWORD=edith1342\nSECRET_KEY=cebf84544f2a6b521e567409b8acd084d02e6ed744ba21698f4be3c0257f49a7"
+    },
+    {
+      "chunk_id": "ef665586a49691f8",
+      "source_file": "simple-rag\\.env",
+      "file_type": "config",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "OPENROUTER_API_KEY=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"
+    },
+    {
+      "chunk_id": "56933e0ac17a1fa2",
+      "source_file": "simple-rag\\secret.txt",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "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"
+    }
+  ],
+  "4": [
+    {
+      "chunk_id": "a62c3746424d1ed7",
+      "source_file": "digit-rss-tracker\\checker.py",
+      "file_type": "code",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "import feedparser\nimport requests\nimport os\nimport sys\n\n# ─── CONFIG ───────────────────────────────────────────────────────────────────\nFEED_URL = \"https://www.digit.in/author/vyomramani/feed/\"\nNTFY_"
+    },
+    {
+      "chunk_id": "29627d12a75dc4de",
+      "source_file": "digit-rss-tracker\\checker.py",
+      "file_type": "code",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "def validate_feed(url):\n    \"\"\"\n    Before doing anything else, check that the RSS feed is actually reachable\n    and returning valid content. This prevents silent failures — if the feed\n    is down o"
+    },
+    {
+      "chunk_id": "92891ade956e2fc8",
+      "source_file": "digit-rss-tracker\\checker.py",
+      "file_type": "code",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "def send_notification(title, url):\n    \"\"\"Send a push notification via ntfy.sh.\"\"\"\n    try:\n        requests.post(\n            f\"https://ntfy.sh/{NTFY_TOPIC}\",\n            headers={\n                \"T"
+    },
+    {
+      "chunk_id": "b02756e6ae4b0e67",
+      "source_file": "digit-rss-tracker\\checker.py",
+      "file_type": "code",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "def main():\n    print(\"─── Digit Article Checker ───\")\n\n    # Step 1: Validate feed before doing anything else\n    ok, result = validate_feed(FEED_URL)\n    if not ok:\n        print(f\"[✗] Feed validati"
+    },
+    {
+      "chunk_id": "ac0fa8d2cf44102a",
+      "source_file": "digit-rss-tracker\\README.md",
+      "file_type": "document",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "# digit-rss-tracker - Setup Guide\n\nRepository to track an author on digit and notify when he posts an article (made to track a goated friend named vyom ramani)\n\n## What you're setting up\n\nA Python scr"
+    },
+    {
+      "chunk_id": "df41fff0307adae8",
+      "source_file": "digit-rss-tracker\\README.md",
+      "file_type": "document",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "HTTP calls (used for both feed fetching and ntfy notification)\n    pip3 install feedparser requests --break-system-packages\n\nThe --break-system-packages flag is needed on newer Ubuntu versions — it ju"
+    },
+    {
+      "chunk_id": "dda03a6d31296796",
+      "source_file": "digit-rss-tracker\\test.md",
+      "file_type": "document",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "(digit-rss-tracker) PS D:\\work_dsi\\digit-rss-tracker> uv pip install feedparser requests\n\nResolved 7 packages in 2.82s\nBuilt sgmllib3k==1.0.0\nPrepared 6 packages in 476ms\n\n░░░░░░░░░░░░░░░░░░░░ [0/7] I"
+    },
+    {
+      "chunk_id": "f632a0761ad72cea",
+      "source_file": "digit-rss-tracker\\test_feed.py",
+      "file_type": "code",
+      "project_root": "digit-rss-tracker",
+      "confidence": 1.0,
+      "text_preview": "\"\"\"\nRun this locally before setting anything up on the server.\nIt checks if the RSS feed exists, is readable, and prints what's in it.\n\nRequirements: pip install feedparser requests\nRun with:     pyth"
+    },
+    {
+      "chunk_id": "69c7a91e82a69897",
+      "source_file": "README.md",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "# digit-rss-tracker - Setup Guide\n\nRepository to track an author on digit and notify when he posts an article (made to track a goated friend named vyom ramani)\n\n## What you're setting up\n\nA Python scr"
+    },
+    {
+      "chunk_id": "7934e85687a10139",
+      "source_file": "README.md",
+      "file_type": "document",
+      "project_root": "",
+      "confidence": 1.0,
+      "text_preview": "HTTP calls (used for both feed fetching and ntfy notification)\n    pip3 install feedparser requests --break-system-packages\n\nThe --break-system-packages flag is needed on newer Ubuntu versions — it ju"
+    }
+  ],
+  "2": [
+    {
+      "chunk_id": "61cc460bd971cd42",
+      "source_file": "expenses-pwa\\.env.local",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "VITE_API_URL=http://localhost:8000"
+    },
+    {
+      "chunk_id": "da649bf55cd155c7",
+      "source_file": "expenses-pwa\\.gitignore",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "# Logs\nlogs\n*.log\nnpm-debug.log*\nyarn-debug.log*\nyarn-error.log*\npnpm-debug.log*\nlerna-debug.log*\n\nnode_modules\ndist\ndist-ssr\n*.local\n\n# Editor directories and files\n.vscode/*\n!.vscode/extensions.json"
+    },
+    {
+      "chunk_id": "bb9e3d324467fd94",
+      "source_file": "expenses-pwa\\backend\\.gitignore",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 0.6,
+      "text_preview": "paisa.db\n\n# Byte-compiled / optimized / DLL files\n__pycache__/\n*.py[codz]\n*$py.class\n\n# C extensions\n*.so\n\n# Distribution / packaging\n.Python\nbuild/\ndevelop-eggs/\ndist/\ndownloads/\neggs/\n.eggs/\nlib/\nli"
+    },
+    {
+      "chunk_id": "8f3fc8c5d5354528",
+      "source_file": "expenses-pwa\\backend\\app\\auth.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import os\nfrom datetime import datetime, timedelta\nfrom jose import JWTError, jwt\nfrom passlib.context import CryptContext\nfrom fastapi import HTTPException, Depends\nfrom fastapi.security import HTTPB"
+    },
+    {
+      "chunk_id": "6850277b4237a10b",
+      "source_file": "expenses-pwa\\backend\\app\\database.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import aiosqlite\nimport os\n\nDB_PATH = os.getenv(\"DB_PATH\", \"./paisa.db\")\n\nCREATE_TABLES = \"\"\"\nCREATE TABLE IF NOT EXISTS wallets (\n    id         INTEGER PRIMARY KEY AUTOINCREMENT,\n    name       TEXT"
+    },
+    {
+      "chunk_id": "cf761d7be05dd083",
+      "source_file": "expenses-pwa\\backend\\app\\main.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import os\nfrom contextlib import asynccontextmanager\nfrom fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nfrom app.database imp"
+    },
+    {
+      "chunk_id": "6081cee1f0530311",
+      "source_file": "expenses-pwa\\backend\\app\\models.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "from pydantic import BaseModel\nfrom typing import Optional\n\n\nclass LoginRequest(BaseModel):\n    password: str\n\n\nclass TransactionCreate(BaseModel):\n    wallet_id: int\n    amount: float\n    description"
+    },
+    {
+      "chunk_id": "dc54a804673c4ae3",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\auth.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "from fastapi import APIRouter, HTTPException\nfrom app.models import LoginRequest\nfrom app.auth import verify_password, create_token\n\nrouter = APIRouter()\n\n\n@router.post(\"/api/auth/login\")\nasync def lo"
+    },
+    {
+      "chunk_id": "8c31f69589390884",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\dashboard.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "from fastapi import APIRouter, Depends\nfrom datetime import datetime\nfrom app.database import get_db\nfrom app.auth import verify_token\n\nrouter = APIRouter(dependencies=[Depends(verify_token)])\n\n\n@rout"
+    },
+    {
+      "chunk_id": "d619a16df403a05e",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\export.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "from fastapi import APIRouter, Depends\nfrom fastapi.responses import StreamingResponse\nfrom typing import Optional\nimport csv, io\nfrom app.database import get_db\nfrom app.auth import verify_token\n\nrou"
+    },
+    {
+      "chunk_id": "0ea42ae6b5f916f0",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\transactions.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "from fastapi import APIRouter, Depends\nfrom typing import Optional\nfrom app.database import get_db\nfrom app.models import TransactionCreate\nfrom app.auth import verify_token\n\nrouter = APIRouter(depend"
+    },
+    {
+      "chunk_id": "1947c0bcea9a530f",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\transactions.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "async def list_transactions(\n    category: Optional[str] = None,\n    wallet_id: Optional[int] = None,\n    from_date: Optional[str] = None,\n    to_date: Optional[str] = None,\n    db=Depends(get_db),\n):"
+    },
+    {
+      "chunk_id": "0df0566ee51f7268",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\transactions.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "async def create_transaction(body: TransactionCreate, db=Depends(get_db)):\n    cursor = await db.execute(\n        \"\"\"INSERT INTO transactions\n           (wallet_id, amount, description, category, paym"
+    },
+    {
+      "chunk_id": "597ff5ddf41da7d9",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\transactions.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "async def delete_transaction(tx_id: int, db=Depends(get_db)):\n    await db.execute(\"DELETE FROM transactions WHERE id = ?\", (tx_id,))\n    await db.commit()"
+    },
+    {
+      "chunk_id": "07c6937cfb839134",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\wallets.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "from fastapi import APIRouter, Depends\nfrom app.database import get_db\nfrom app.models import FundingCreate, WalletCreate\nfrom app.auth import verify_token\n\nrouter = APIRouter(dependencies=[Depends(ve"
+    },
+    {
+      "chunk_id": "38dc7f63679ce5f4",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\wallets.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "async def list_wallets(db=Depends(get_db)):\n    cursor = await db.execute(\"SELECT * FROM wallets ORDER BY id\")\n    rows = await cursor.fetchall()\n    return [dict(row) for row in rows]\n\n\n@router.post("
+    },
+    {
+      "chunk_id": "b47d68c330e11034",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\wallets.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "async def create_wallet(body: WalletCreate, db=Depends(get_db)):\n    cursor = await db.execute(\n        \"INSERT INTO wallets (name, type) VALUES (?, ?)\", (body.name, body.type)\n    )\n    await db.comm"
+    },
+    {
+      "chunk_id": "a0d282705fb887fb",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\wallets.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "async def fund_wallet(wallet_id: int, body: FundingCreate, db=Depends(get_db)):\n    cursor = await db.execute(\n        \"INSERT INTO funding_events (wallet_id, amount, date, note) VALUES (?, ?, ?, ?)\","
+    },
+    {
+      "chunk_id": "28a64546a91ca8cc",
+      "source_file": "expenses-pwa\\backend\\app\\routers\\wallets.py",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "async def get_cycles(db=Depends(get_db)):\n    wallets_cursor = await db.execute(\"SELECT * FROM wallets ORDER BY id\")\n    wallets = await wallets_cursor.fetchall()\n    result = []\n\n    for wallet in wa"
+    },
+    {
+      "chunk_id": "4cde10255135eaff",
+      "source_file": "expenses-pwa\\backend\\requirements.txt",
+      "file_type": "document",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "fastapi\nuvicorn\npython-jose[cryptography]\npasslib[bcrypt]\npython-multipart\naiosqlite\npython-dotenv"
+    },
+    {
+      "chunk_id": "d4637d2efda3b0c5",
+      "source_file": "expenses-pwa\\eslint.config.js",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import js from '@eslint/js'\nimport globals from 'globals'\nimport reactHooks from 'eslint-plugin-react-hooks'\nimport reactRefresh from 'eslint-plugin-react-refresh'\nimport tseslint from 'typescript-esl"
+    },
+    {
+      "chunk_id": "fd0a45d3cc923bc1",
+      "source_file": "expenses-pwa\\index.html",
+      "file_type": "document",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/favicon.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-s"
+    },
+    {
+      "chunk_id": "c0545e61f9a237a2",
+      "source_file": "expenses-pwa\\package.json",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "{\n  \"name\": \"expenses-pwa\",\n  \"private\": true,\n  \"version\": \"0.0.0\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"tsc -b && vite build\",\n    \"lint\": \"eslint .\",\n    \"preview\": \""
+    },
+    {
+      "chunk_id": "db992d7601d9bfe2",
+      "source_file": "expenses-pwa\\README.md",
+      "file_type": "document",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "# React + TypeScript + Vite\n\nThis template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.\n\nCurrently, two official plugins are available:\n\n- [@vitejs/plugin-reac"
+    },
+    {
+      "chunk_id": "911728117767dd6e",
+      "source_file": "expenses-pwa\\src\\api\\client.ts",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import axios from \"axios\";\n\nconst BASE_URL = import.meta.env.VITE_API_URL ?? \"http://localhost:8000\";\n\nexport const api = axios.create({\n  baseURL: BASE_URL,\n  headers: { \"Content-Type\": \"application/"
+    },
+    {
+      "chunk_id": "9fd5ab76a71cd548",
+      "source_file": "expenses-pwa\\src\\App.css",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": ".counter {\n  font-size: 16px;\n  padding: 5px 10px;\n  border-radius: 5px;\n  color: var(--accent);\n  background: var(--accent-bg);\n  border: 2px solid transparent;\n  transition: border-color 0.3s;\n  mar"
+    },
+    {
+      "chunk_id": "76c7c30f1d93200c",
+      "source_file": "expenses-pwa\\src\\App.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { BrowserRouter, Routes, Route, Navigate } from \"react-router-dom\";\nimport { useAuth } from \"./hooks/useAuth\";\nimport { BottomNav } from \"./components/BottomNav\";\nimport { Login } from \"./pages"
+    },
+    {
+      "chunk_id": "6a30f39c3e328a9c",
+      "source_file": "expenses-pwa\\src\\components\\BottomNav.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { useLocation, useNavigate } from \"react-router-dom\";\n\nconst TABS = [\n  { path: \"/\", label: \"Home\" },\n  { path: \"/add\", label: \"Add\" },\n  { path: \"/wallets\", label: \"Wallets\" },\n  { path: \"/his"
+    },
+    {
+      "chunk_id": "b363610332ee9e55",
+      "source_file": "expenses-pwa\\src\\components\\CategoryBar.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { CATEGORY_LABELS, CATEGORY_COLORS } from \"../types\";\nimport type { Category } from \"../types\";\n\ninterface Props {\n  category: Category;\n  amount: number;\n  maxAmount: number;\n}\n\nexport functio"
+    },
+    {
+      "chunk_id": "a44f4b7289ae3e6c",
+      "source_file": "expenses-pwa\\src\\components\\TransactionRow.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import type { Transaction } from \"../types\";\nimport { CATEGORY_LABELS, CATEGORY_COLORS } from \"../types\";\n\ninterface Props {\n  transaction: Transaction;\n  onDelete?: (id: number) => void;\n}\n\nexport fu"
+    },
+    {
+      "chunk_id": "a77bca13a5eb61f1",
+      "source_file": "expenses-pwa\\src\\hooks\\useAuth.ts",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { useState, useEffect } from \"react\";\n\nexport function useAuth() {\n  const [token, setToken] = useState<string | null>(\n    localStorage.getItem(\"token\"),\n  );\n\n  const login = (newToken: strin"
+    },
+    {
+      "chunk_id": "e7665ec5f81c0af5",
+      "source_file": "expenses-pwa\\src\\index.css",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 0.6,
+      "text_preview": ":root {\n  --text: #6b6375;\n  --text-h: #08060d;\n  --bg: #fff;\n  --border: #e5e4e7;\n  --code-bg: #f4f3ec;\n  --accent: #aa3bff;\n  --accent-bg: rgba(170, 59, 255, 0.1);\n  --accent-border: rgba(170, 59, 2"
+    },
+    {
+      "chunk_id": "18b46b6318542d80",
+      "source_file": "expenses-pwa\\src\\main.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { StrictMode } from \"react\";\nimport { createRoot } from \"react-dom/client\";\nimport App from \"./App\";\n\ncreateRoot(document.getElementById(\"root\")!).render(\n  <StrictMode>\n    <App />\n  </StrictM"
+    },
+    {
+      "chunk_id": "ab3f9f81ce50d62d",
+      "source_file": "expenses-pwa\\src\\pages\\AddExpense.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { useState, useEffect } from \"react\";\nimport { useNavigate } from \"react-router-dom\";\nimport { transactions, wallets } from \"../api/client\";\nimport type { Wallet, Category, PaymentMethod } from"
+    },
+    {
+      "chunk_id": "4fcd19b4242f81b5",
+      "source_file": "expenses-pwa\\src\\pages\\Dashboard.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { useEffect, useState } from \"react\";\nimport { dashboard } from \"../api/client\";\nimport { CategoryBar } from \"../components/CategoryBar\";\nimport { TransactionRow } from \"../components/Transacti"
+    },
+    {
+      "chunk_id": "3d8216e4228eb4cc",
+      "source_file": "expenses-pwa\\src\\pages\\Export.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { useState } from \"react\";\nimport { exportData } from \"../api/client\";\n\nexport function Export() {\n  const [from, setFrom] = useState(\"\");\n  const [to, setTo] = useState(\"\");\n  const [loading, "
+    },
+    {
+      "chunk_id": "9ae469e338073054",
+      "source_file": "expenses-pwa\\src\\pages\\History.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { useEffect, useState } from \"react\";\nimport { transactions } from \"../api/client\";\nimport { TransactionRow } from \"../components/TransactionRow\";\nimport type { Transaction, Category } from \".."
+    },
+    {
+      "chunk_id": "e1ce039391df3f34",
+      "source_file": "expenses-pwa\\src\\pages\\Login.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "interface Props {\n  onLogin: (token: string) => void;\n}"
+    },
+    {
+      "chunk_id": "2f7cc845239b2cb0",
+      "source_file": "expenses-pwa\\src\\pages\\Login.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "export function Login({ onLogin }: Props) {\n  const [password, setPassword] = useState(\"\");\n  const [error, setError] = useState(\"\");\n  const [loading, setLoading] = useState(false);\n\n  const handleSu"
+    },
+    {
+      "chunk_id": "4f60547812630bf5",
+      "source_file": "expenses-pwa\\src\\pages\\Wallets.tsx",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { useEffect, useState } from \"react\";\nimport { wallets } from \"../api/client\";\nimport type { Cycle } from \"../types\";\n\nexport function Wallets() {\n  const [cycles, setCycles] = useState<Cycle[]"
+    },
+    {
+      "chunk_id": "f89fbb56304e6caf",
+      "source_file": "expenses-pwa\\src\\styles\\global.css",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": ":root {\n  --bg: #0d0f0d;\n  --bg-alt: #111811;\n  --surface: #161e16;\n  --border: #1a261a;\n  --border-2: #2d4a2d;\n  --text: #e8f0e8;\n  --muted: #4a6a4a;\n  --subtle: #2d4a2d;\n  --accent: #4caf50;\n  --acc"
+    },
+    {
+      "chunk_id": "d08da0fc8da9b0d8",
+      "source_file": "expenses-pwa\\src\\types\\index.ts",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "export type PaymentMethod = \"cash\" | \"debit\" | \"credit\";\n\nexport type Category =\n  | \"food\"\n  | \"transport\"\n  | \"health\"\n  | \"education\"\n  | \"bills\"\n  | \"home\"\n  | \"misc\";\n\nexport interface Wallet {\n "
+    },
+    {
+      "chunk_id": "7f96fc51c022a437",
+      "source_file": "expenses-pwa\\tsconfig.app.json",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "{\n  \"compilerOptions\": {\n    \"tsBuildInfoFile\": \"./node_modules/.tmp/tsconfig.app.tsbuildinfo\",\n    \"target\": \"ES2023\",\n    \"useDefineForClassFields\": true,\n    \"lib\": [\"ES2023\", \"DOM\", \"DOM.Iterable\""
+    },
+    {
+      "chunk_id": "b84e2ab2e20dc5f1",
+      "source_file": "expenses-pwa\\tsconfig.json",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "{\n  \"files\": [],\n  \"references\": [\n    { \"path\": \"./tsconfig.app.json\" },\n    { \"path\": \"./tsconfig.node.json\" }\n  ]\n}"
+    },
+    {
+      "chunk_id": "1088fc89041a0776",
+      "source_file": "expenses-pwa\\tsconfig.node.json",
+      "file_type": "config",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "{\n  \"compilerOptions\": {\n    \"tsBuildInfoFile\": \"./node_modules/.tmp/tsconfig.node.tsbuildinfo\",\n    \"target\": \"ES2023\",\n    \"lib\": [\"ES2023\"],\n    \"module\": \"ESNext\",\n    \"types\": [\"node\"],\n    \"skip"
+    },
+    {
+      "chunk_id": "36308634d754a19b",
+      "source_file": "expenses-pwa\\vite.config.ts",
+      "file_type": "code",
+      "project_root": "expenses-pwa",
+      "confidence": 1.0,
+      "text_preview": "import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\n\n// https://vite.dev/config/\nexport default defineConfig({\n  plugins: [react()],\n})"
+    }
+  ],
+  "11": [
+    {
+      "chunk_id": "e1729889ca44bdac",
+      "source_file": "simple-rag\\.gitignore",
+      "file_type": "config",
+      "project_root": "simple-rag",
+      "confidence": 0.6,
+      "text_preview": "# Other Directories\nchroma_db/\nchrome_store/\nsecret.txt\n\n# Byte-compiled / optimized / DLL files\n__pycache__/\n*.py[codz]\n*$py.class\n\n# C extensions\n*.so\n\n# Distribution / packaging\n.Python\nbuild/\ndeve"
+    },
+    {
+      "chunk_id": "689cc9bb8f08febb",
+      "source_file": "simple-rag\\requirements.txt",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "setuptools\nwheel\n\nstreamlit\n\nlangchain\nlangchain-core\nlangchain-community\n\nchromadb\nopenai\npython-docx\npypdf\ndocx2txt\ntiktoken"
+    },
+    {
+      "chunk_id": "1978a08d25932da1",
+      "source_file": "simple-rag\\simple-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "from dotenv import load_dotenv\n\nload_dotenv()\n\n# simple_rag.py\nimport os\nimport sys\nfrom typing import List\n\n# LangChain core pieces\nfrom langchain_core.documents import Document\nfrom langchain_text_s"
+    },
+    {
+      "chunk_id": "25be0b5fbd5c6e4f",
+      "source_file": "simple-rag\\simple-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "def ask_strict_mode():\n    while True:\n        choice = input(\"Strict document-only mode? (y/n): \").strip().lower()\n        if choice in (\"y\", \"yes\"):\n            return True\n        if choice in (\"n\""
+    },
+    {
+      "chunk_id": "4ebe243e71f89b9e",
+      "source_file": "simple-rag\\streamlit-rag.py",
+      "file_type": "code",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "# streamlit_rag.py\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nimport os\nimport sys\nimport tempfile\nfrom typing import List\n\nimport streamlit as st\n\n# LangChain core pieces\nfrom langchain_core.docu"
+    }
+  ],
+  "6": [
+    {
+      "chunk_id": "ba279055a901fd08",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Internship at Dassault Systèmes in Corporate Cybersecurity Dept. (SecOps Team)\nAn Industrial Training Project Report Submitted\nto\nMANIPAL ACADEMY OF HIGHER EDUCATION\nFor Partial Fulfilment of the Requ"
+    },
+    {
+      "chunk_id": "c1214c26a3954d1e",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "PREFACE\nThis report has been prepared as a part of my Internship Program required for ITR, as a part of my BTech Degree. The report is prepared with the view to include all the details regarding the w"
+    },
+    {
+      "chunk_id": "dfb7364381b040cd",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Objectives fulfilled during the course of this internship:\nUnderstand the structure, missions, roles and responsibilities of a Corporate Cybersecurity Team (i.e., SecOps Team)\nFamiliarize with key cyb"
+    },
+    {
+      "chunk_id": "84feb14b0e04f50a",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 0.6,
+      "text_preview": "ACKNOWLEDGEMENT\nI express my sincere thanks to all those who undoubtedly supported me in conducting the project report in the Security Operations (SecOps Team) Internship at Dassault Systèmes.\nI would"
+    },
+    {
+      "chunk_id": "d243747e073ab5c7",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "CORPORATE CYBERSECURITY TEAM: STRUCTURE, MISSION, AND OPERATIONS"
+    },
+    {
+      "chunk_id": "dd4dfb3bd533b14e",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Corporate Profile and Organizational Structure\nDassault Systèmes SE, abbreviated as 3DS, operates as a French multinational software corporation specializing in 3D product design, simulation, manufact"
+    },
+    {
+      "chunk_id": "3289c1cb8fb4b21d",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Overview\nThe corporate cybersecurity team serves as the primary defence mechanism for an enterprise's digital infrastructure, data, and operations. This team operates as a centralized unit responsible"
+    },
+    {
+      "chunk_id": "5a0e7cce09e159fd",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Corporate IT Cybersecurity: The SecOps Team\nMission Statement: to detect, prevent and respond to cyber threats and monitor security vulnerabilities.\nThe 3DS SecOps Team operates on 3 Core Pillars resp"
+    },
+    {
+      "chunk_id": "dbf30b868e8471f4",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Team Structure and Hierarchy\nChief Information Security Officer (CISO)\nThe CISO represents the apex of cybersecurity leadership within an organization, serving as a senior-level executive who reports "
+    },
+    {
+      "chunk_id": "383ede549113e3fa",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Tools and Technologies\nSecurity Information and Event Management (SIEM)\nSIEM platforms serve as the central hub for security monitoring and analysis. These tools collect, correlate, and analyse securi"
+    },
+    {
+      "chunk_id": "9d4bb637365b482b",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Elements of a Cyber Threat\nTarget: specific entity or system that is the focus of the threat\nObjectives: intended outcome or goal of the threat actors\nBusiness Impact: potential or realized damage res"
+    },
+    {
+      "chunk_id": "da90a58248d6cdee",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "SecOps role in Safeguarding 3DS:\nEndpoint Security via EDR\nUser Account(s) Analytics via SIEM\nThreat Intelligence and Hunting\nExternal Attack Surface Management\nDigital Fraud and Brand Protection\nConc"
+    },
+    {
+      "chunk_id": "e2c70f4318f43577",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 0.6,
+      "text_preview": "Week 02\t|\tExploring the DS Cybersecurity Ecosystem"
+    },
+    {
+      "chunk_id": "c180f3183467eb4a",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Week 04\t|\tCyber Threat and Threat Intelligence"
+    },
+    {
+      "chunk_id": "37a6ce2d47095786",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 01\t|\tPerform an OSINT on 3DS\nCorporate Profile and Organizational Structure\nDassault Systèmes SE, abbreviated as 3DS, operates as a French multinational software corporation specializing in 3D pr"
+    },
+    {
+      "chunk_id": "4439fcf9ebf10ec1",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 02\t|\tResearch on Cybersecurity Fundamentals\nSANS IR (Incident Response Framework)\nThe SANS Incident Response (IR) Framework is a tactical six-step process designed to help organizations detect, m"
+    },
+    {
+      "chunk_id": "33c8c35e1cc0750f",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 03\t|\tPerform an IP OSINT on 3DS website domain\nI started with a ICMP ping on the domain to know what is the IP Address on which it’s running\nWindows PowerShell\nCopyright (C) Microsoft Corporation"
+    },
+    {
+      "chunk_id": "d26260111481fc0f",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 04\t|\tAnalyse a Hash and Assess the Threat Vector\nIndicator: af986793a515d500ab2d35f8d2aecd656e764504b789b66d7e1a0b727a124c44\nRan a recipe on Cyberchef to analyse what kind of indicator is this. R"
+    },
+    {
+      "chunk_id": "2c685740fb4e0940",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 05\t|\tResearch on Password Analysing Tools online\nBitwarden Password Strength Tester\nBitwarden provides a reliable password strength testing tool that uses the zxcvbn algorithm for accurate passwo"
+    },
+    {
+      "chunk_id": "0b1d818fbd7af67e",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 06\t|\tDifferentiate between AV, next gen AV and EDR\nTraditional Antivirus (AV)\nTraditional antivirus software represents the first generation of endpoint security solutions that emerged in the 198"
+    },
+    {
+      "chunk_id": "d449d057afaabc1e",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 07\t|\tDifferentiate between EDR, MDR, XDR and NDR\nEDR (Endpoint Detection and Response)\nEDR focuses specifically on monitoring and securing endpoint devices such as computers, laptops, servers, an"
+    },
+    {
+      "chunk_id": "13456a81c33e7a24",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 08\t|\tDifferentiate between Red, Blue, Purple Teaming\nRed Team: The Offensive Force\nRed teams function as the offensive component of cybersecurity operations, comprised of ethical hackers, penetra"
+    },
+    {
+      "chunk_id": "bfd719876eaba26c",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 09\t|\tRead up on CIS Benchmarks\nWhat are CIS Benchmarks?\nCIS Benchmarks are vendor-neutral, community-developed configuration baselines that help organizations harden their systems against cyberat"
+    },
+    {
+      "chunk_id": "4bce1adc41854fe0",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 10\t|\tRead up on Watering Hole attack\nWhat is a Watering Hole Attack?\nA watering hole attack is a sophisticated cyberattack strategy where attackers compromise websites frequently visited by speci"
+    },
+    {
+      "chunk_id": "44e6300ab899334c",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 11\t|\tCyber Security Reports and Analysis of a few\nOverall, majority of security companies may offer a wide variety of reports in the Cyber Security landscape such as:\nThreat Intelligence Reports\n"
+    },
+    {
+      "chunk_id": "56674c55884f4e3f",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Analysis of a few Major Cyber Reports-\nCrowdStrike 2025 Global Threat Report\n79% of intrusions were malware-free and “break-out” time fell to 48 min (fastest = 51 s).\nCloud, identity and SaaS compromi"
+    },
+    {
+      "chunk_id": "f08d12008d9596de",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 12\t|\tExploring SecOps Roles: Offensive Security\nOffensive security represents a proactive cybersecurity approach where professionals actively identify and exploit vulnerabilities before malicious"
+    },
+    {
+      "chunk_id": "bbd3d1a887c53d16",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 13\t|\tExploring SecOps Roles: Incident Response\nIncident response represents the reactive cybersecurity discipline that serves as an organization’s first line of defence when security incidents oc"
+    },
+    {
+      "chunk_id": "16a15a57341322e2",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 14\t|\tExploring SecOps Roles: CTI, CTH and EASM\nCyber Threat Intelligence (CTI)\nCyber Threat Intelligence represents the proactive collection, analysis, and dissemination of actionable information"
+    },
+    {
+      "chunk_id": "5f099108604c93e5",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 15\t|\tCTI Hunt on Notepad++ Vulnerability\nCVE-2025-49144 is a critical privilege escalation vulnerability in Notepad++ v8.8.1 and earlier, allowing attackers to gain SYSTEM-level access on Windows"
+    },
+    {
+      "chunk_id": "0ebbfa20bfdf29de",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 16\t|\tCTI Hunt on Lumma Malware and it’s Analysis\nWhat is Lumma Malware\nLumma Stealer, also known as LummaC2 Stealer, is a sophisticated information-stealing malware written in C programming langu"
+    },
+    {
+      "chunk_id": "57fff8eb675b4285",
+      "source_file": "simple-rag\\data\\sample.docx",
+      "file_type": "document",
+      "project_root": "simple-rag",
+      "confidence": 1.0,
+      "text_preview": "Task 17\t|\tResearch on Traffic Light Protocol (TLP)\nThe Traffic Light Protocol (TLP) is a standardized system for classifying and controlling the sharing of sensitive information, particularly within c"
+    }
+  ]
+}

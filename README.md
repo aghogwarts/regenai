@@ -1147,3 +1147,23 @@ This way CPU users get a working install out of the box, GPU users run one extra
 Has the embedding run finished?
 
 <hr>
+
+Correctly isolated (no action needed):
+
+Cluster 0 — 8th-sem LaTeX templates and formatting docs
+Cluster 1 — 8th-sem completed documents (synopsis, progress reports) — large because sample.docx synonym content
+Cluster 2 — expenses-pwa, perfectly clean
+Cluster 3 — 8th-sem guidelines and requirements
+Cluster 4 — digit-rss-tracker core
+Cluster 6 — simple-rag's sample.docx (your Dassault internship diary — 30 chunks alone)
+Cluster 8 — 8th-sem document templates (front pages, diary formats)
+
+Interesting cross-pollination (explainable):
+
+Cluster 5 — this is the "README/documentation" cluster. READMEs from digit-rss-tracker, simple-rag, and 8th-sem all use similar language patterns (project description, setup instructions, usage). Semantically correct grouping even though projects differ.
+Cluster 7 — this one's fascinating. Certificates + .env files + .gitignore files. The common thread: short, keyword-dense files with technical vocabulary (API keys, model names, package lists). They embed similarly because they're all lists of technical terms without narrative structure.
+Cluster 9 — the email PDF found its 8th-sem home (your intentional misplacement test worked). The simple-rag files here (secret.txt, requirements.txt) share keywords like your name and internship context.
+Cluster 10 — PROJECT_IDEA.pdf + deep-research-report.md (both describe this exact project) + file-loading code from simple-rag and digit-rss-tracker. Makes sense — they all discuss file crawling, chunking, embeddings.
+Cluster 11 — simple-rag's Streamlit UI code + config
+
+Overall verdict: The clustering is doing a genuinely good job. The "wrong" groupings are all semantically defensible — they're grouping by topic/vocabulary similarity, which is exactly what embeddings measure. The project root tags correctly identify where files actually belong, and the RAPTOR layer will use both signals to produce accurate per-project summaries.
