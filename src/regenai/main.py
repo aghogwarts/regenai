@@ -9,6 +9,10 @@ import argparse
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from rich.console import Console
 from rich.prompt import Prompt, Confirm
 

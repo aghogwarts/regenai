@@ -19,6 +19,9 @@ EMBEDDING_DIMENSIONS: int = 768  # bge-base-en-v1.5 outputs 768-dim dense vector
 DEFAULT_LLM_MODEL: str = "llama3.1:8b"
 OLLAMA_BASE_URL: str = "http://localhost:11434"
 
+# OpenRouter (used when model name contains "/", e.g. "meta-llama/llama-3.3-70b-instruct:free")
+OPENROUTER_BASE_URL: str = "https://openrouter.ai/api/v1"
+
 # ---------------------------------------------------------------------------
 # Chunking parameters
 # ---------------------------------------------------------------------------

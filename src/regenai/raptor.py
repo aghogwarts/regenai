@@ -25,6 +25,7 @@ from regenai.config import (
     CHUNK_MAX_TOKENS,
     CHARS_PER_TOKEN,
     OLLAMA_BASE_URL,
+    OPENROUTER_BASE_URL,
 )
 from regenai.refiner import RefinedResult
 
@@ -62,15 +63,72 @@ class ProjectSummary:
 
 
 # ---------------------------------------------------------------------------
-# Ollama wrapper
+# LLM wrapper — supports Ollama (local) and OpenRouter (API)
 # ---------------------------------------------------------------------------
 
 
+def _is_openrouter_model(model: str) -> bool:
+    """Models with '/' in the name are OpenRouter format (e.g. meta-llama/llama-3.3-70b-instruct:free)."""
+    return "/" in model
+
+
+def _call_llm(prompt: str, model: str, max_retries: int = 3) -> str:
+    """
+    Send a prompt to the configured LLM and return the response.
+    Routes to OpenRouter if model contains '/', otherwise uses Ollama.
+    """
+    if _is_openrouter_model(model):
+        return _call_openrouter(prompt, model, max_retries)
+    else:
+        return _call_ollama(prompt, model, max_retries)
+
+
+def _call_openrouter(prompt: str, model: str, max_retries: int = 5) -> str:
+    """Call OpenRouter API (OpenAI-compatible) with rate limit handling."""
+    import os
+    import time
+    from openai import OpenAI
+
+    api_key = os.environ.get("OPENROUTER_API_KEY", "")
+    if not api_key:
+        console.print("  [red]OPENROUTER_API_KEY not set in .env![/red]")
+        return "[Summary generation failed: no API key]"
+
+    client = OpenAI(
+        base_url=OPENROUTER_BASE_URL,
+        api_key=api_key,
+    )
+
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                max_tokens=2048,
+            )
+            # Rate limit: pause after each successful call (free tier = 8/min)
+            time.sleep(8)
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            if "429" in str(e):
+                wait = 15 * (attempt + 1)  # 15s, 30s, 45s, 60s, 75s
+                console.print(f"  [yellow]Rate limited, waiting {wait}s...[/yellow]")
+                time.sleep(wait)
+            else:
+                if attempt == max_retries - 1:
+                    console.print(
+                        f"  [red]OpenRouter error after {max_retries} attempts: {e}[/red]"
+                    )
+                    return f"[Summary generation failed: {e}]"
+                console.print(f"  [yellow]OpenRouter retry {attempt + 1}: {e}[/yellow]")
+                time.sleep(5)
+
+    return "[Summary generation failed]"
+
+
 def _call_ollama(prompt: str, model: str, max_retries: int = 3) -> str:
-    """
-    Send a prompt to Ollama and return the response text.
-    Retries on timeout/connection errors.
-    """
+    """Call local Ollama server."""
     import ollama
 
     for attempt in range(max_retries):
@@ -237,7 +295,7 @@ def _summarize_cluster(
     if _estimate_tokens(combined) <= max_input_tokens:
         # Single-pass summarization
         prompt = _cluster_prompt(combined, composition)
-        summary = _call_ollama(prompt, model)
+        summary = _call_llm(prompt, model)
     else:
         # Map-reduce: split into groups, summarize each, then merge
         groups: list[str] = []
@@ -260,7 +318,7 @@ def _summarize_cluster(
         sub_summaries: list[str] = []
         for group_text in groups:
             prompt = _cluster_prompt(group_text, composition)
-            sub_summary = _call_ollama(prompt, model)
+            sub_summary = _call_llm(prompt, model)
             sub_summaries.append(sub_summary)
 
         # Reduce: merge sub-summaries
@@ -271,7 +329,7 @@ def _summarize_cluster(
             "and preserving all important details.\n\n"
             f"---\n\n{merged}"
         )
-        summary = _call_ollama(reduce_prompt, model)
+        summary = _call_llm(reduce_prompt, model)
 
     return ClusterSummary(
         cluster_id=cluster_id,
@@ -346,7 +404,7 @@ def _build_project_summaries(
                 f"[Aspect {i+1}]:\n{s}" for i, s in enumerate(cluster_texts)
             )
             prompt = _project_prompt(combined, root)
-            project_summary = _call_ollama(prompt, model)
+            project_summary = _call_llm(prompt, model)
 
         results.append(
             ProjectSummary(
@@ -380,7 +438,7 @@ def _build_project_summaries(
             combined = "\n\n---\n\n".join(unanchored_texts)
 
             # Ask LLM to name the topic
-            topic_name = _call_ollama(_topic_naming_prompt(combined), model)
+            topic_name = _call_llm(_topic_naming_prompt(combined), model)
             topic_name = topic_name.strip().strip('"').strip("'")
 
             # If multiple unanchored clusters, merge their summaries
@@ -392,7 +450,7 @@ def _build_project_summaries(
                     "overview, organized by theme:\n\n"
                     f"---\n\n{combined}"
                 )
-                final_summary = _call_ollama(merge_prompt, model)
+                final_summary = _call_llm(merge_prompt, model)
 
             # Avg confidence for unanchored
             unanchored_confs = [

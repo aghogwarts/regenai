@@ -24,11 +24,13 @@ dependencies = [
 
     # LLM
     "ollama",
+    "openai",
 
     # Utilities
     "pathspec",
     "rich",
     "chardet",
+    "python-dotenv",
 ]
 
 [project.scripts]
