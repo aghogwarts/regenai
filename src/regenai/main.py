@@ -181,6 +181,36 @@ def cli() -> None:
     console.print("[bold]Refining clusters...[/bold]")
     refined_result = refine_clusters(cluster_result)
 
+    # -- TEMP: Dump cluster contents to JSON for inspection (safe to delete) --
+    import json
+
+    chunk_text_map = {c.id: c.text for c in chunks}
+    cluster_dump: dict[str, list] = {}
+    for assignment, meta in zip(
+        refined_result.assignments, refined_result.chunk_metadata
+    ):
+        cid = "noise" if assignment.is_noise else str(assignment.primary_cluster)
+        if cid not in cluster_dump:
+            cluster_dump[cid] = []
+        cluster_dump[cid].append(
+            {
+                "chunk_id": assignment.chunk_id,
+                "source_file": meta["source_file"],
+                "file_type": meta["file_type"],
+                "project_root": meta["project_root"],
+                "confidence": round(assignment.confidence, 3),
+                "text_preview": chunk_text_map.get(assignment.chunk_id, "")[:200],
+            }
+        )
+    dump_path = Path("_clusters_debug.json")
+    dump_path.write_text(
+        json.dumps(cluster_dump, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    console.print(
+        f"  [dim]Clusters dumped to {dump_path.resolve()} (safe to delete)[/dim]"
+    )
+    # -- END TEMP --
+
     # -- Module 7: RAPTOR summarization via Ollama --
     console.print("[bold]Generating summaries via Ollama...[/bold]")
     project_summaries = raptor_summarize(refined_result, input_dir, args.model)

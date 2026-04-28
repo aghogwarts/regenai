@@ -111,8 +111,16 @@ def _call_openrouter(prompt: str, model: str, max_retries: int = 5) -> str:
             time.sleep(8)
             return response.choices[0].message.content.strip()
         except Exception as e:
-            if "429" in str(e):
-                wait = 15 * (attempt + 1)  # 15s, 30s, 45s, 60s, 75s
+            error_str = str(e)
+            if "400" in error_str:
+                # Invalid model ID — fail immediately, don't retry
+                console.print(f"  [red]Invalid model ID: {model}[/red]")
+                console.print(
+                    f"  [dim]Check available models at https://openrouter.ai/models?q=free[/dim]"
+                )
+                return f"[Summary generation failed: invalid model]"
+            elif "429" in error_str:
+                wait = 15 * (attempt + 1)
                 console.print(f"  [yellow]Rate limited, waiting {wait}s...[/yellow]")
                 time.sleep(wait)
             else:
