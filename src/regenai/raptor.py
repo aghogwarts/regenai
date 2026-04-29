@@ -1,7 +1,8 @@
 """
 RAPTOR — Module 7 of the ReGenAI pipeline.
 
-2-level summarization using a local LLM via Ollama:
+2-level summarization using a local LLM (Ollama) or any
+OpenAI-compatible API (Dassault DevAssistant, OpenRouter, etc.):
 
     Level 1 — Cluster summaries:
         For each cluster, gather chunk texts and summarize.
@@ -10,7 +11,7 @@ RAPTOR — Module 7 of the ReGenAI pipeline.
     Level 2 — Project summaries:
         Group cluster summaries by project root.
         Produce a unified project overview per project.
-        Unanchored clusters get LLM-named topics.
+        Unanchored clusters get LLM-named topics (grouped by cluster).
 """
 
 from dataclasses import dataclass, field
@@ -44,93 +45,108 @@ class ClusterSummary:
     cluster_id: int
     summary: str
     source_files: list[str]
-    project_roots: list[str]  # may be multiple if mixed
-    unanchored_files: list[str]  # files with no project root
+    project_roots: list[str]
+    unanchored_files: list[str]
     chunk_count: int
-    composition: str  # "code-heavy", "document-heavy", "mixed"
+    composition: str
 
 
 @dataclass
 class ProjectSummary:
     """Level 2: unified summary for a project or topic."""
 
-    project_name: str  # project root name or LLM-generated topic
-    project_root: str | None  # None for unanchored topics
-    cluster_summaries: list[str]  # level 1 summaries that fed into this
-    project_summary: str  # the unified summary
-    source_files: list[str]  # all files that contributed
+    project_name: str
+    project_root: str | None
+    cluster_summaries: list[str]
+    project_summary: str
+    source_files: list[str]
     avg_confidence: float
 
 
 # ---------------------------------------------------------------------------
-# LLM wrapper — supports Ollama (local) and OpenRouter (API)
+# LLM wrapper — Ollama (local) or any OpenAI-compatible API
 # ---------------------------------------------------------------------------
 
 
-def _is_openrouter_model(model: str) -> bool:
-    """Models with '/' in the name are OpenRouter format (e.g. meta-llama/llama-3.3-70b-instruct:free)."""
+def _is_api_model(model: str) -> bool:
+    """Models with '/' are API models, otherwise Ollama."""
     return "/" in model
 
 
 def _call_llm(prompt: str, model: str, max_retries: int = 3) -> str:
-    """
-    Send a prompt to the configured LLM and return the response.
-    Routes to OpenRouter if model contains '/', otherwise uses Ollama.
-    """
-    if _is_openrouter_model(model):
-        return _call_openrouter(prompt, model, max_retries)
+    if _is_api_model(model):
+        return _call_openai_compatible(prompt, model, max_retries)
     else:
         return _call_ollama(prompt, model, max_retries)
 
 
-def _call_openrouter(prompt: str, model: str, max_retries: int = 5) -> str:
-    """Call OpenRouter API (OpenAI-compatible) with rate limit handling."""
+def _call_openai_compatible(prompt: str, model: str, max_retries: int = 5) -> str:
+    """
+    Call any OpenAI-compatible API using httpx directly.
+    Uses LLM_BASE_URL + LLM_API_KEY from .env if set,
+    falls back to OpenRouter with OPENROUTER_API_KEY.
+    """
     import os
     import time
-    from openai import OpenAI
+    import json
+    import httpx
 
-    api_key = os.environ.get("OPENROUTER_API_KEY", "")
+    base_url = os.environ.get("BASE_URL", "")
+    api_key = os.environ.get("API_KEY", "")
+
+    if not base_url:
+        base_url = OPENROUTER_BASE_URL
+        api_key = os.environ.get("OPENROUTER_API_KEY", "")
+
     if not api_key:
-        console.print("  [red]OPENROUTER_API_KEY not set in .env![/red]")
+        console.print(
+            "  [red]No API key! Add BASE_URL + API_KEY or OPENROUTER_API_KEY to .env[/red]"
+        )
         return "[Summary generation failed: no API key]"
 
-    client = OpenAI(
-        base_url=OPENROUTER_BASE_URL,
-        api_key=api_key,
-    )
+    url = f"{base_url}/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.3,
+        "max_tokens": 2048,
+        "stream": False,
+    }
 
     for attempt in range(max_retries):
         try:
-            response = client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.3,
-                max_tokens=2048,
-            )
-            # Rate limit: pause after each successful call (free tier = 8/min)
-            time.sleep(8)
-            return response.choices[0].message.content.strip()
-        except Exception as e:
-            error_str = str(e)
-            if "400" in error_str:
-                # Invalid model ID — fail immediately, don't retry
+            with httpx.Client(timeout=120.0) as client:
+                response = client.post(url, headers=headers, json=payload)
+
+            if response.status_code == 400:
                 console.print(f"  [red]Invalid model ID: {model}[/red]")
-                console.print(
-                    f"  [dim]Check available models at https://openrouter.ai/models?q=free[/dim]"
-                )
-                return f"[Summary generation failed: invalid model]"
-            elif "429" in error_str:
+                return "[Summary generation failed: invalid model]"
+            elif response.status_code == 429:
                 wait = 15 * (attempt + 1)
                 console.print(f"  [yellow]Rate limited, waiting {wait}s...[/yellow]")
                 time.sleep(wait)
-            else:
-                if attempt == max_retries - 1:
-                    console.print(
-                        f"  [red]OpenRouter error after {max_retries} attempts: {e}[/red]"
-                    )
-                    return f"[Summary generation failed: {e}]"
-                console.print(f"  [yellow]OpenRouter retry {attempt + 1}: {e}[/yellow]")
-                time.sleep(5)
+                continue
+
+            response.raise_for_status()
+            data = response.json()
+
+            # Extract content from OpenAI-compatible response
+            content = data["choices"][0]["message"]["content"]
+            return content.strip()
+
+        except (httpx.HTTPStatusError, httpx.ConnectError, httpx.TimeoutException) as e:
+            if attempt == max_retries - 1:
+                console.print(f"  [red]API error: {e}[/red]")
+                return f"[Summary generation failed: {e}]"
+            console.print(f"  [yellow]Retry {attempt + 1}: {e}[/yellow]")
+            time.sleep(5)
+        except (KeyError, IndexError, json.JSONDecodeError) as e:
+            console.print(f"  [red]Failed to parse API response: {e}[/red]")
+            return f"[Summary generation failed: {e}]"
 
     return "[Summary generation failed]"
 
@@ -149,9 +165,7 @@ def _call_ollama(prompt: str, model: str, max_retries: int = 3) -> str:
             return response["message"]["content"].strip()
         except Exception as e:
             if attempt == max_retries - 1:
-                console.print(
-                    f"  [red]Ollama error after {max_retries} attempts: {e}[/red]"
-                )
+                console.print(f"  [red]Ollama error: {e}[/red]")
                 return f"[Summary generation failed: {e}]"
             console.print(f"  [yellow]Ollama retry {attempt + 1}: {e}[/yellow]")
 
@@ -164,7 +178,6 @@ def _call_ollama(prompt: str, model: str, max_retries: int = 3) -> str:
 
 
 def _load_chunk_texts(input_dir) -> dict[str, str]:
-    """Load chunk ID → text mapping from ChromaDB."""
     import chromadb
     from pathlib import Path
 
@@ -182,7 +195,6 @@ def _load_chunk_texts(input_dir) -> dict[str, str]:
 
 
 def _cluster_prompt(chunks_text: str, composition: str) -> str:
-    """Build the summarization prompt based on cluster composition."""
     if composition == "code-heavy":
         instruction = (
             "Summarize the following code and documentation. Focus on:\n"
@@ -201,7 +213,7 @@ def _cluster_prompt(chunks_text: str, composition: str) -> str:
             "- Relationships between documents\n"
             "Be specific — mention actual names, dates, and concrete details."
         )
-    else:  # mixed
+    else:
         instruction = (
             "Summarize the following collection of code and documents. Focus on:\n"
             "- The project's purpose and goals\n"
@@ -215,7 +227,6 @@ def _cluster_prompt(chunks_text: str, composition: str) -> str:
 
 
 def _project_prompt(cluster_summaries: str, project_name: str) -> str:
-    """Build the project-level summary prompt."""
     return (
         f"The following are summaries of different aspects of the project '{project_name}'. "
         f"Combine them into a single comprehensive project overview. Include:\n"
@@ -229,7 +240,6 @@ def _project_prompt(cluster_summaries: str, project_name: str) -> str:
 
 
 def _topic_naming_prompt(summary: str) -> str:
-    """Ask the LLM to name an unanchored topic."""
     return (
         "Based on this summary, give a short descriptive name (2-5 words) for this "
         "collection of files. Respond with ONLY the name, nothing else.\n\n"
@@ -238,12 +248,15 @@ def _topic_naming_prompt(summary: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Determine cluster composition
+# Helpers
 # ---------------------------------------------------------------------------
 
 
+def _estimate_tokens(text: str) -> int:
+    return len(text) // CHARS_PER_TOKEN
+
+
 def _get_composition(metadata_list: list[dict]) -> str:
-    """Classify cluster as code-heavy, document-heavy, or mixed."""
     type_counts = defaultdict(int)
     for m in metadata_list:
         type_counts[m.get("file_type", "")] += 1
@@ -266,10 +279,6 @@ def _get_composition(metadata_list: list[dict]) -> str:
 # ---------------------------------------------------------------------------
 
 
-def _estimate_tokens(text: str) -> int:
-    return len(text) // CHARS_PER_TOKEN
-
-
 def _summarize_cluster(
     cluster_id: int,
     chunk_ids: list[str],
@@ -283,11 +292,9 @@ def _summarize_cluster(
     """
     composition = _get_composition(metadata_list)
 
-    # Gather texts
     texts = [chunk_texts.get(cid, "") for cid in chunk_ids]
     texts = [t for t in texts if t.strip()]
 
-    # Source files and project roots
     source_files = sorted(set(m["source_file"] for m in metadata_list))
     project_roots = sorted(
         set(m["project_root"] for m in metadata_list if m["project_root"])
@@ -296,16 +303,14 @@ def _summarize_cluster(
         set(m["source_file"] for m in metadata_list if not m["project_root"])
     )
 
-    # Check if all texts fit in one prompt (~3000 token budget for input)
     max_input_tokens = 3000
     combined = "\n\n---\n\n".join(texts)
 
     if _estimate_tokens(combined) <= max_input_tokens:
-        # Single-pass summarization
         prompt = _cluster_prompt(combined, composition)
         summary = _call_llm(prompt, model)
     else:
-        # Map-reduce: split into groups, summarize each, then merge
+        # Map-reduce
         groups: list[str] = []
         current_group: list[str] = []
         current_tokens = 0
@@ -322,14 +327,14 @@ def _summarize_cluster(
         if current_group:
             groups.append("\n\n---\n\n".join(current_group))
 
-        # Map: summarize each group
+        # Map
         sub_summaries: list[str] = []
         for group_text in groups:
             prompt = _cluster_prompt(group_text, composition)
             sub_summary = _call_llm(prompt, model)
             sub_summaries.append(sub_summary)
 
-        # Reduce: merge sub-summaries
+        # Reduce
         merged = "\n\n---\n\n".join(sub_summaries)
         reduce_prompt = (
             "The following are partial summaries of the same project component. "
@@ -361,22 +366,22 @@ def _build_project_summaries(
     model: str,
 ) -> list[ProjectSummary]:
     """
-    Group cluster summaries by project root and produce unified
-    project-level summaries. Unanchored clusters get their own topics.
+    Group cluster summaries by project root → unified project summaries.
+    Unanchored clusters grouped by cluster ID → LLM-named topics.
     """
     # Group clusters by project root
     project_clusters: dict[str, list[ClusterSummary]] = defaultdict(list)
-    unanchored_clusters: list[ClusterSummary] = []
+    # Track unanchored clusters separately, preserving cluster identity
+    unanchored_clusters: dict[int, ClusterSummary] = {}
 
     for cs in cluster_summaries:
         if cs.project_roots:
-            # A cluster may have multiple roots (mixed) — assign to each
             for root in cs.project_roots:
                 project_clusters[root].append(cs)
         if cs.unanchored_files:
-            unanchored_clusters.append(cs)
+            unanchored_clusters[cs.cluster_id] = cs
 
-    # Compute avg confidence per project
+    # Avg confidence per project
     assignment_map: dict[str, list[float]] = defaultdict(list)
     for a, m in zip(refined.assignments, refined.chunk_metadata):
         root = m.get("project_root", "")
@@ -385,7 +390,7 @@ def _build_project_summaries(
 
     results: list[ProjectSummary] = []
 
-    # Project summaries
+    # --- Named project summaries ---
     for root, summaries in sorted(project_clusters.items()):
         all_files = sorted(
             set(
@@ -401,9 +406,8 @@ def _build_project_summaries(
         )
 
         cluster_texts = [cs.summary for cs in summaries]
-        avg_conf = sum(assignment_map.get(root, [1.0])) / max(
-            len(assignment_map.get(root, [1.0])), 1
-        )
+        confs = assignment_map.get(root, [1.0])
+        avg_conf = sum(confs) / max(len(confs), 1)
 
         if len(cluster_texts) == 1:
             project_summary = cluster_texts[0]
@@ -425,59 +429,34 @@ def _build_project_summaries(
             )
         )
 
-    # Unanchored topic summaries
-    if unanchored_clusters:
-        # Group unanchored files by their cluster
-        unanchored_by_cluster: dict[int, ClusterSummary] = {}
-        for cs in unanchored_clusters:
-            if cs.unanchored_files:
-                unanchored_by_cluster[cs.cluster_id] = cs
+    # --- Unanchored topic summaries (one per cluster) ---
+    for cid, cs in sorted(unanchored_clusters.items()):
+        # Name the topic
+        topic_name = _call_llm(_topic_naming_prompt(cs.summary), model)
+        topic_name = topic_name.strip().strip('"').strip("'").strip("#").strip("*")
 
-        # Collect all unanchored content into one summary
-        unanchored_texts = []
-        all_unanchored_files = []
-        for cs in unanchored_by_cluster.values():
-            unanchored_texts.append(cs.summary)
-            all_unanchored_files.extend(cs.unanchored_files)
+        # Confidence for unanchored chunks in this cluster
+        unanchored_confs = [
+            a.confidence
+            for a, m in zip(refined.assignments, refined.chunk_metadata)
+            if not m.get("project_root") and a.primary_cluster == cid
+        ]
+        avg_conf = (
+            sum(unanchored_confs) / max(len(unanchored_confs), 1)
+            if unanchored_confs
+            else 0.5
+        )
 
-        all_unanchored_files = sorted(set(all_unanchored_files))
-
-        if unanchored_texts:
-            combined = "\n\n---\n\n".join(unanchored_texts)
-
-            # Ask LLM to name the topic
-            topic_name = _call_llm(_topic_naming_prompt(combined), model)
-            topic_name = topic_name.strip().strip('"').strip("'")
-
-            # If multiple unanchored clusters, merge their summaries
-            if len(unanchored_texts) == 1:
-                final_summary = unanchored_texts[0]
-            else:
-                merge_prompt = (
-                    "Combine these summaries of miscellaneous files into a single "
-                    "overview, organized by theme:\n\n"
-                    f"---\n\n{combined}"
-                )
-                final_summary = _call_llm(merge_prompt, model)
-
-            # Avg confidence for unanchored
-            unanchored_confs = [
-                a.confidence
-                for a, m in zip(refined.assignments, refined.chunk_metadata)
-                if not m.get("project_root")
-            ]
-            avg_conf = sum(unanchored_confs) / max(len(unanchored_confs), 1)
-
-            results.append(
-                ProjectSummary(
-                    project_name=topic_name,
-                    project_root=None,
-                    cluster_summaries=unanchored_texts,
-                    project_summary=final_summary,
-                    source_files=all_unanchored_files,
-                    avg_confidence=avg_conf,
-                )
+        results.append(
+            ProjectSummary(
+                project_name=topic_name,
+                project_root=None,
+                cluster_summaries=[cs.summary],
+                project_summary=cs.summary,
+                source_files=cs.unanchored_files,
+                avg_confidence=avg_conf,
             )
+        )
 
     return results
 
@@ -495,16 +474,9 @@ def raptor_summarize(
     """
     Run the 2-level RAPTOR summarization pipeline.
 
-    Level 1: Summarize each cluster via Ollama.
-    Level 2: Group by project root and produce project summaries.
-
-    Args:
-        refined: Output from Module 6 (refiner).
-        input_dir: Root directory (for ChromaDB access).
-        model: Ollama model name.
-
-    Returns:
-        List of ProjectSummary objects.
+    Level 1: Summarize each cluster via LLM (with map-reduce for large clusters).
+    Level 2: Group by project root and produce unified project summaries.
+             Unanchored clusters get their own LLM-named topics.
     """
     from pathlib import Path
 
@@ -558,9 +530,9 @@ def raptor_summarize(
     console.print()
 
     for ps in project_summaries:
-        root_label = ps.project_root or "[topic]"
         console.print(
-            f"    📁 {ps.project_name} ({len(ps.source_files)} files, conf={ps.avg_confidence:.2f})"
+            f"    📁 {ps.project_name} "
+            f"({len(ps.source_files)} files, conf={ps.avg_confidence:.2f})"
         )
 
     console.print()
