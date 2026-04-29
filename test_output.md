@@ -208,3 +208,183 @@ on your system and try again.
 
 Pipeline modules 3–10 not yet implemented.
 Next: chunker.py (Module 3)
+
+<hr>
+
+(regenai) PS D:\work_dsi\regenai> uv run regenai --model openai/gpt-oss-120b
+
+  ReGenAI — Project Directory Summarizer
+  ─────────────────────────────────────────
+
+  Enter input directory path: ./Demo
+  Enter output directory path (regenai-output): 
+
+  Model:  openai/gpt-oss-120b
+
+
+Scan root: D:\work_dsi\regenai\Demo
+  Files scanned:    89
+  Files ignored:    59098
+  Files oversized:  0
+  Binary skipped:   0
+  Files to process: 87
+
+Detected 4 project root(s):
+  📁 8th-Sem-Project-Documents
+  📁 digit-rss-tracker
+  📁 expenses-pwa
+  📁 simple-rag
+
+File type breakdown:
+  document     42
+  code         32
+  config       13
+
+  Proceed with 87 files? [y/n] (y): 
+Parsing files...
+  Parse error: 8th-Sem-Project-Documents\Document_Template_PreReq\Front Page- external students Synopsis format.doc: soffice command was not found. Please install libreoffice
+on your system and try again.
+
+- Install instructions: https://www.libreoffice.org/get-help/install-howto/
+- Mac: https://formulae.brew.sh/cask/libreoffice
+- Debian: https://wiki.debian.org/LibreOffice
+  Parse error: 8th-Sem-Project-Documents\Document_Template_PreReq\Front Page- internal candidates Synopsis format.doc: soffice command was not found. Please install libreoffice
+on your system and try again.
+
+- Install instructions: https://www.libreoffice.org/get-help/install-howto/
+- Mac: https://formulae.brew.sh/cask/libreoffice
+- Debian: https://wiki.debian.org/LibreOffice
+  Parse error: 8th-Sem-Project-Documents\Document_Template_PreReq\Synopsis format_2026.doc: soffice command was not found. Please install libreoffice
+on your system and try again.
+
+- Install instructions: https://www.libreoffice.org/get-help/install-howto/
+- Mac: https://formulae.brew.sh/cask/libreoffice
+- Debian: https://wiki.debian.org/LibreOffice
+  Parse error: 8th-Sem-Project-Documents\Guidelines\Circular 008-Completion of requirements_0001.pdf: No text content extracted
+  Parsing files ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87/87
+  Parsed successfully: 83
+  Failed to parse: 4
+
+  83 files ready for chunking
+
+Chunking files...
+  Chunking files ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 83/83
+  Files chunked: 83
+  Total chunks:  285
+  Chunk sizes: avg=491, min=0, max=4932 tokens (est.)
+
+  Chunks dumped to D:\work_dsi\regenai\_chunks_debug.json (safe to delete)
+Embedding chunks...
+  Loading BAAI/bge-base-en-v1.5 on GPU...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 199/199 [00:00<00:00, 5250.14it/s]
+  Model loaded on GPU
+
+  Embedding chunks...
+  Embedding ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 285/285
+  Embedded 285 chunks (768 dimensions)
+  Storing in ChromaDB...
+  Stored 285 chunks in 'regenai_chunks'
+  Stored 83 file embeddings in 'regenai_files'
+  ChromaDB persisted at D:\work_dsi\regenai\Demo\.regenai_store
+
+Clustering...
+  Loading embeddings from ChromaDB...
+  Loaded 285 chunk embeddings (768 dims)
+  Reducing dimensions with UMAP...
+D:\work_dsi\regenai\.venv\Lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+  Reduced to 25 dimensions
+  Attempt 1/5: HDBSCAN(min_cluster_size=10, min_samples=5)...
+    Found 12 clusters, 26 noise points
+    Silhouette score: 0.703
+    Score above threshold (0.5), accepting.
+  Fitting GMM with 12 components...
+  GMM soft assignments computed
+
+  Clustering complete:
+    Clusters found:   12
+    Noise points:     26
+    Silhouette score: 0.703
+
+                                           Cluster Breakdown                                            
+┏━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Cluster ┃ Chunks ┃ Files ┃ Top File Types                 ┃ Project Roots                            ┃
+┡━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│  noise  │     26 │    14 │ document(22), config(3),       │ 8th-Sem-Project-Documents,               │
+│         │        │       │ code(1)                        │ digit-rss-tracker, expenses-pwa,         │
+│         │        │       │                                │ simple-rag                               │
+│    0    │      9 │     4 │ document(9)                    │ 8th-Sem-Project-Documents                │
+│    1    │     38 │     2 │ document(38)                   │ 8th-Sem-Project-Documents                │
+│    2    │     44 │    36 │ code(35), config(6),           │ expenses-pwa                             │
+│         │        │       │ document(3)                    │                                          │
+│    3    │     20 │     5 │ document(20)                   │ 8th-Sem-Project-Documents                │
+│    4    │     10 │     5 │ code(5), document(5)           │ digit-rss-tracker                        │
+│    5    │     28 │    10 │ document(28)                   │ 8th-Sem-Project-Documents,               │
+│         │        │       │                                │ digit-rss-tracker, simple-rag            │
+│    6    │     30 │     1 │ document(30)                   │ simple-rag                               │
+│    7    │     10 │     9 │ document(8), config(2)         │ expenses-pwa, simple-rag                 │
+│    8    │     23 │     2 │ document(23)                   │ 8th-Sem-Project-Documents                │
+│    9    │     20 │    12 │ document(20)                   │ 8th-Sem-Project-Documents, simple-rag    │
+│   10    │     23 │     7 │ code(12), document(9),         │ 8th-Sem-Project-Documents,               │
+│         │        │       │ config(2)                      │ digit-rss-tracker, simple-rag            │
+│   11    │      4 │     3 │ code(3), document(1)           │ simple-rag                               │
+└─────────┴────────┴───────┴────────────────────────────────┴──────────────────────────────────────────┘
+
+Refining clusters...
+  Splitting mixed clusters...
+    Reassigned 0 chunks from mixed clusters
+  Reassigning noise points...
+    Reassigned 26 noise points
+
+  Refinement complete:
+    Active clusters:  12
+    Remaining noise:  0
+    Chunks split:     0
+    Noise reassigned: 26
+
+                                             Refined Cluster Breakdown                                             
+┏━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Cluster ┃ Chunks ┃ Files ┃ Avg Conf ┃ Top File Types                 ┃ Project Roots                            ┃
+┡━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│    0    │     15 │     7 │     0.84 │ document(15)                   │ 8th-Sem-Project-Documents                │
+│    1    │     38 │     2 │     1.00 │ document(38)                   │ 8th-Sem-Project-Documents                │
+│    2    │     46 │    38 │     0.98 │ code(36), config(7),           │ expenses-pwa                             │
+│         │        │       │          │ document(3)                    │                                          │
+│    3    │     23 │     5 │     0.95 │ document(23)                   │ 8th-Sem-Project-Documents                │
+│    4    │     10 │     5 │     1.00 │ code(5), document(5)           │ digit-rss-tracker +1 unanchored          │
+│    5    │     35 │    14 │     0.92 │ document(35)                   │ 8th-Sem-Project-Documents,               │
+│         │        │       │          │                                │ digit-rss-tracker, simple-rag            │
+│    6    │     32 │     1 │     0.97 │ document(32)                   │ simple-rag                               │
+│    7    │     10 │     9 │     1.00 │ document(8), config(2)         │ expenses-pwa, simple-rag +6 unanchored   │
+│    8    │     23 │     2 │     1.00 │ document(23)                   │ 8th-Sem-Project-Documents                │
+│    9    │     24 │    13 │     0.93 │ document(24)                   │ 8th-Sem-Project-Documents, simple-rag +1 │
+│         │        │       │          │                                │ unanchored                               │
+│   10    │     24 │     8 │     0.98 │ code(12), document(9),         │ 8th-Sem-Project-Documents,               │
+│         │        │       │          │ config(3)                      │ digit-rss-tracker, simple-rag +2         │
+│         │        │       │          │                                │ unanchored                               │
+│   11    │      5 │     4 │     0.92 │ code(3), config(1),            │ simple-rag                               │
+│         │        │       │          │ document(1)                    │                                          │
+└─────────┴────────┴───────┴──────────┴────────────────────────────────┴──────────────────────────────────────────┘
+
+  Clusters dumped to D:\work_dsi\regenai\_clusters_debug.json (safe to delete)
+Generating summaries via Ollama...
+  Loading chunk texts from ChromaDB...
+  Summarizing 12 clusters...
+  Cluster summaries 12/12
+  Generated 12 cluster summaries
+  Building project summaries...
+  Generated 8 project summaries
+
+    📁 8th-Sem-Project-Documents (18 files, conf=0.96)
+    📁 digit-rss-tracker (7 files, conf=0.94)
+    📁 expenses-pwa (39 files, conf=0.98)
+    📁 simple-rag (9 files, conf=0.95)
+    📁 Digit RSS Tracker (1 files, conf=1.00)
+    📁 AAII LLM/RAG Course Pack (6 files, conf=1.00)
+    📁 AI‑Enabled Enterprise Architecture (1 files, conf=1.00)
+    📁 Local AI File Organizer (2 files, conf=1.00)
+
+
+Pipeline module 8 not yet implemented.
+Next: output.py (Module 8)
