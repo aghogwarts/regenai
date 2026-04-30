@@ -216,11 +216,16 @@ def cli() -> None:
     project_summaries = raptor_summarize(refined_result, input_dir, args.model)
 
     # -- Module 8: Write output markdown files --
+    from datetime import datetime
+
+    run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    run_dir = output_dir / run_timestamp
+
     console.print("[bold]Writing output files...[/bold]")
-    write_output(project_summaries, output_dir)
+    write_output(project_summaries, run_dir)
 
     console.print("[bold green]Pipeline complete![/bold green]")
-    console.print(f"  [dim]Output directory: {output_dir.resolve()}[/dim]")
+    console.print(f"  [dim]Output directory: {run_dir.resolve()}[/dim]")
 
 
 if __name__ == "__main__":

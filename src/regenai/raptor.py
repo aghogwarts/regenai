@@ -430,7 +430,52 @@ def _build_project_summaries(
         )
 
     # --- Unanchored topic summaries (one per cluster) ---
+    # If a cluster is dominated by one project root (>50% of files), merge
+    # the unanchored files into that project. Otherwise create a separate topic.
+    truly_unanchored: dict[int, ClusterSummary] = {}
+
     for cid, cs in sorted(unanchored_clusters.items()):
+        # Count project-rooted vs unanchored files in this cluster
+        cluster_root_files: dict[str, set[str]] = defaultdict(set)
+        unanchored_file_set: set[str] = set()
+
+        for a, m in zip(refined.assignments, refined.chunk_metadata):
+            if a.primary_cluster == cid and not a.is_noise:
+                root = m.get("project_root", "")
+                if root:
+                    cluster_root_files[root].add(m["source_file"])
+                else:
+                    unanchored_file_set.add(m["source_file"])
+
+        total_files = sum(len(f) for f in cluster_root_files.values()) + len(
+            unanchored_file_set
+        )
+
+        # Check for a dominant project
+        absorbed = False
+        if cluster_root_files:
+            dominant_root = max(
+                cluster_root_files, key=lambda r: len(cluster_root_files[r])
+            )
+            dominant_ratio = len(cluster_root_files[dominant_root]) / max(
+                total_files, 1
+            )
+
+            if dominant_ratio >= 0.5 and len(unanchored_file_set) <= 3:
+                # Absorb unanchored files into the dominant project
+                for ps in results:
+                    if ps.project_root == dominant_root:
+                        for f in sorted(unanchored_file_set):
+                            if f not in ps.source_files:
+                                ps.source_files.append(f)
+                        ps.source_files.sort()
+                        absorbed = True
+                        break
+
+        if not absorbed:
+            truly_unanchored[cid] = cs
+
+    for cid, cs in sorted(truly_unanchored.items()):
         # Name the topic
         topic_name = _call_llm(_topic_naming_prompt(cs.summary), model)
         topic_name = topic_name.strip().strip('"').strip("'").strip("#").strip("*")
