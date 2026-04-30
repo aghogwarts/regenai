@@ -28,7 +28,7 @@ from regenai.embedder import embed_all
 from regenai.clusterer import cluster_all
 from regenai.refiner import refine_clusters
 from regenai.raptor import raptor_summarize
-
+from regenai.output import write_output
 
 console = Console()
 
@@ -211,15 +211,16 @@ def cli() -> None:
     )
     # -- END TEMP --
 
-    # -- Module 7: RAPTOR summarization via Ollama --
-    console.print("[bold]Generating summaries via Ollama...[/bold]")
+    # -- Module 7: RAPTOR summarization --
+    console.print(f"[bold]Generating summaries via {args.model}...[/bold]")
     project_summaries = raptor_summarize(refined_result, input_dir, args.model)
 
-    # -- Module 8 will be called here --
-    # TODO: output.py
-    console.print()
-    console.print("[yellow]Pipeline module 8 not yet implemented.[/yellow]")
-    console.print("[dim]Next: output.py (Module 8)[/dim]")
+    # -- Module 8: Write output markdown files --
+    console.print("[bold]Writing output files...[/bold]")
+    write_output(project_summaries, output_dir)
+
+    console.print("[bold green]Pipeline complete![/bold green]")
+    console.print(f"  [dim]Output directory: {output_dir.resolve()}[/dim]")
 
 
 if __name__ == "__main__":
