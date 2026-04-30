@@ -1,5 +1,6 @@
 # Other directories
 Demo/
+regenai-output/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
